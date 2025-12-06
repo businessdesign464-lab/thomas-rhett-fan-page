@@ -6,15 +6,16 @@
     <title>Thomas Rhett | Home Team Official Fan Hub</title>
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* CSS STYLES */
+        /* GLOBAL RESET & VARIABLES */
+        * { box-sizing: border-box; }
         :root {
             --bg-color: #0d0d0d;
             --text-color: #ffffff;
-            --accent-color: #b58900; /* Rustic Gold/Brass */
+            --accent-color: #b58900;
             --card-bg: #1e1e1e;
             --tier1-color: #3e3e3e;
-            --tier2-color: #8B4513; /* Saddle Brown */
-            --tier3-color: #FFD700; /* Gold */
+            --tier2-color: #8B4513;
+            --tier3-color: #FFD700;
         }
 
         body {
@@ -26,29 +27,31 @@
             display: flex;
             justify-content: center;
         }
-
+        /* Make content flexible for better responsiveness */
         .container {
             max-width: 600px;
-            width: 100%;
+            width: 95%; /* Use percentage for fluid width */
             padding: 20px;
             text-align: center;
         }
+        
+        /* Ensure all images scale smoothly */
+        img { max-width: 100%; height: auto; } 
 
-        /* Hero & Profile Images */
+        /* Profile & Hero Images */
         .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); object-fit: cover; margin-bottom: 15px; }
-        .hero-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin: 20px 0; border: 1px solid #333; }
+        .hero-img { height: 200px; border-radius: 10px; margin: 20px 0; border: 1px solid #333; }
 
         h1 { font-family: 'Roboto Slab', serif; margin: 10px 0 5px 0; font-size: 1.8rem; color: var(--accent-color); }
         .bio { color: #aaaaaa; font-size: 1rem; margin-bottom: 25px; font-style: italic; }
         .section-title { margin-top: 40px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; color: #888; border-bottom: 1px solid #222; padding-bottom: 5px; }
         
-        /* Buttons (Simplified) */
+        /* Buttons */
         .btn { display: block; background-color: var(--card-bg); color: var(--text-color); text-decoration: none; padding: 16px; margin: 10px 0; border-radius: 15px; font-weight: 700; font-size: 1.1rem; transition: transform 0.2s, background-color 0.2s; }
         .btn-primary { background-color: var(--accent-color); color: var(--bg-color); }
         .btn-telegram { background-color: #0088cc; color: white; }
-        .btn-telegram:hover { background-color: #005f8f; }
-
-        /* Floating Fan Card Panel (NEW CSS) */
+        
+        /* Floating Fan Card Panel (Desktop/Wide Screens) */
         .floating-panel {
             position: fixed;
             top: 20%;
@@ -59,11 +62,11 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
             padding: 15px;
             z-index: 1000;
-            transform: translateX(210px); /* Hides it mostly off screen */
+            transform: translateX(235px); /* Almost fully hides the panel */
             transition: transform 0.4s ease-in-out;
         }
         .floating-panel:hover {
-            transform: translateX(0); /* Slides out on hover/touch */
+            transform: translateX(0); /* Slides out on hover */
         }
         .panel-tab {
             position: absolute;
@@ -79,38 +82,43 @@
             cursor: pointer;
         }
         
-        /* Tier Styles */
-        .tier-card {
-            background: #1e1e1e;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 8px;
-            text-align: left;
-            border: 1px solid #444;
-        }
+        /* Tier Card Styles */
+        .tier-card { background: #1e1e1e; padding: 10px; margin-bottom: 10px; border-radius: 8px; text-align: left; border: 1px solid #444; }
         .tier-card h4 { margin: 0; font-size: 1.1rem; }
         .tier-price { font-size: 1.3rem; font-weight: bold; margin: 5px 0; }
         .tier-perks li { font-size: 0.85rem; margin-bottom: 3px; }
-
-        /* Tier Specific Colors */
         .tier-bronze { border-left: 5px solid var(--tier1-color); }
         .tier-silver { border-left: 5px solid var(--tier2-color); }
         .tier-gold { border-left: 5px solid var(--tier3-color); }
 
-        /* Mini Game Section */
-        #minigame {
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 10px;
-            margin-top: 30px;
-            border: 2px solid #555;
-            text-align: left;
+        /* Mobile Breakpoint: Styles applied ONLY when screen is 600px or less */
+        @media only screen and (max-width: 600px) {
+            
+            /* Hide the desktop floating panel */
+            .floating-panel {
+                position: static;
+                width: 100%;
+                transform: translateX(0); /* Ensure it's not translated off-screen */
+                margin-top: 30px;
+                border-radius: 10px;
+                box-shadow: none;
+                padding: 15px 0;
+            }
+            /* Remove the "tab" since the panel is now inline */
+            .panel-tab { display: none; }
+            
+            /* Remove fixed width limit on content for smooth mobile flow */
+            .container { padding: 10px; }
+            
+            /* Make tour dates stack vertically better on narrow screens */
+            .tour-date {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .date-box { margin-bottom: 10px; }
+            .venue-info { padding-left: 0; margin-bottom: 10px; }
+            .ticket-btn { align-self: flex-end; }
         }
-        #minigame h3 { color: #fff; margin-top: 0; border-bottom: 2px solid #0088cc; padding-bottom: 5px; }
-        .question { font-weight: bold; margin-bottom: 10px; color: #ccc;}
-        .quiz-btn { background: #555; color: white; padding: 10px; border: none; border-radius: 5px; margin: 5px; cursor: pointer; display: block; text-align: center;}
-        .quiz-btn:hover { background: #777; }
-        #quiz-result { margin-top: 15px; font-weight: bold; text-align: center; }
 
     </style>
 </head>
@@ -150,6 +158,7 @@
         </div>
 
         <h2 class="section-title">Upcoming Concerts (2025 - 2026)</h2>
+        
         <div class="tour-date">
             <div class="date-box">
                 <span class="date-month">DEC</span>
@@ -222,6 +231,7 @@
             <a href="https://www.ticketmaster.com/thomas-rhett-tickets/artist/1592857" class="ticket-btn">TICKETS</a>
         </div>
 
+
         <h2 class="section-title">Connect & Community</h2>
         
         <a href="https://t.me/thomasrhett_fanhub_unofficial" class="btn btn-telegram">📣 Unofficial Telegram Fan Updates</a>
@@ -229,7 +239,7 @@
         <a href="https://instagram.com/thomasrhettakins" class="btn">📸 Instagram</a>
         
         <footer>
-            <p>Home Team Fan Hub | Version 5.0 | Not officially affiliated with Thomas Rhett or BMLG.</p>
+            <p>Home Team Fan Hub | Version 5.1 (Responsive Update) | Not officially affiliated with Thomas Rhett or BMLG.</p>
         </footer>
     </div>
 
@@ -276,7 +286,7 @@
     </div>
 
     <script>
-        // Mini Game Logic (NEW JAVASCRIPT)
+        // Mini Game Logic
         function checkAnswer(answer) {
             const resultElement = document.getElementById('quiz-result');
             // The first major life change mentioned in 'Life Changes' is getting a record deal.
@@ -292,4 +302,3 @@
 
 </body>
 </html>
-
