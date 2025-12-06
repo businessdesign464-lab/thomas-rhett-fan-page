@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thomas Rhett | Home Team Official Fan Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS STYLES */
+        :root {
+            --bg-color: #0d0d0d;
+            --text-color: #ffffff;
+            --accent-color: #b58900; /* Rustic Gold/Brass */
+            --card-bg: #1e1e1e;
+            --tier1-color: #3e3e3e;
+            --tier2-color: #8B4513; /* Saddle Brown */
+            --tier3-color: #FFD700; /* Gold */
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Hero & Profile Images */
+        .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 4px solid var(--accent-color); object-fit: cover; margin-bottom: 15px; }
+        .hero-img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin: 20px 0; border: 1px solid #333; }
+
+        h1 { font-family: 'Roboto Slab', serif; margin: 10px 0 5px 0; font-size: 1.8rem; color: var(--accent-color); }
+        .bio { color: #aaaaaa; font-size: 1rem; margin-bottom: 25px; font-style: italic; }
+        .section-title { margin-top: 40px; margin-bottom: 20px; text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; color: #888; border-bottom: 1px solid #222; padding-bottom: 5px; }
+        
+        /* Buttons (Simplified) */
+        .btn { display: block; background-color: var(--card-bg); color: var(--text-color); text-decoration: none; padding: 16px; margin: 10px 0; border-radius: 15px; font-weight: 700; font-size: 1.1rem; transition: transform 0.2s, background-color 0.2s; }
+        .btn-primary { background-color: var(--accent-color); color: var(--bg-color); }
+        .btn-telegram { background-color: #0088cc; color: white; }
+        .btn-telegram:hover { background-color: #005f8f; }
+
+        /* Floating Fan Card Panel (NEW CSS) */
+        .floating-panel {
+            position: fixed;
+            top: 20%;
+            right: 0;
+            width: 250px;
+            background: #2a2a2a;
+            border-radius: 10px 0 0 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            padding: 15px;
+            z-index: 1000;
+            transform: translateX(210px); /* Hides it mostly off screen */
+            transition: transform 0.4s ease-in-out;
+        }
+        .floating-panel:hover {
+            transform: translateX(0); /* Slides out on hover/touch */
+        }
+        .panel-tab {
+            position: absolute;
+            left: -40px;
+            top: 50px;
+            background: var(--accent-color);
+            color: var(--bg-color);
+            padding: 8px 10px;
+            font-weight: bold;
+            border-radius: 5px 0 0 5px;
+            transform: rotate(-90deg);
+            transform-origin: 0% 0%;
+            cursor: pointer;
+        }
+        
+        /* Tier Styles */
+        .tier-card {
+            background: #1e1e1e;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            text-align: left;
+            border: 1px solid #444;
+        }
+        .tier-card h4 { margin: 0; font-size: 1.1rem; }
+        .tier-price { font-size: 1.3rem; font-weight: bold; margin: 5px 0; }
+        .tier-perks li { font-size: 0.85rem; margin-bottom: 3px; }
+
+        /* Tier Specific Colors */
+        .tier-bronze { border-left: 5px solid var(--tier1-color); }
+        .tier-silver { border-left: 5px solid var(--tier2-color); }
+        .tier-gold { border-left: 5px solid var(--tier3-color); }
+
+        /* Mini Game Section */
+        #minigame {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 30px;
+            border: 2px solid #555;
+            text-align: left;
+        }
+        #minigame h3 { color: #fff; margin-top: 0; border-bottom: 2px solid #0088cc; padding-bottom: 5px; }
+        .question { font-weight: bold; margin-bottom: 10px; color: #ccc;}
+        .quiz-btn { background: #555; color: white; padding: 10px; border: none; border-radius: 5px; margin: 5px; cursor: pointer; display: block; text-align: center;}
+        .quiz-btn:hover { background: #777; }
+        #quiz-result { margin-top: 15px; font-weight: bold; text-align: center; }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="./profile.jpg" alt="Thomas Rhett Profile" class="profile-img">
+        
+        <h1>THOMAS RHETT AKINS</h1>
+        <p class="bio">The official fan hub for the Home Team. Stream **About A Woman (Deluxe)** now!</p>
+
+        <a href="https://tr.lnk.to/AboutAWomanDeluxeID" class="btn btn-primary">🎧 Stream New Album on Spotify/Apple</a>
+
+        <img src="./hero.jpg" alt="About A Woman Album Art" class="hero-img">
+
+
+        <div id="fan-panel">
+            <h3>🔑 Exclusive Fan Utilities</h3>
+            <select class="panel-select" onchange="window.location.href=this.value;">
+                <option value="">Select Your State/Region for Local Packs</option>
+                <option value="https://hometeam.thomasrhett.com/tour">General Home Team Pre-Sale Info</option>
+                <option value="https://hometeam.thomasrhett.com/merchandise">Exclusive Merch & Fan Cards</option>
+                <option value="#">Tennessee/Nashville Community (Daily Meetups)</option>
+                <option value="#">Texas/Austin Community (Concert Watch Parties)</option>
+                <option value="#">UK/London Concert Info (Wembley)</option>
+            </select>
+            <p style="color:#aaa; font-size:0.85rem;">*Fans who engage frequently get access to better offers and lower rates.</p>
+        </div>
+        
+        <div id="minigame">
+            <h3>🕹️ Life Changes Mini Quiz</h3>
+            <div class="question">Q: In the song 'Life Changes', what is the first major milestone Thomas Rhett mentions?</div>
+            <button class="quiz-btn" onclick="checkAnswer('college')">A: Graduating College</button>
+            <button class="quiz-btn" onclick="checkAnswer('record')">B: Getting a record deal</button>
+            <button class="quiz-btn" onclick="checkAnswer('marriage')">C: Getting Married</button>
+            <div id="quiz-result"></div>
+        </div>
+
+        <h2 class="section-title">Upcoming Concerts (2025 - 2026)</h2>
+        <div class="tour-date">
+            <div class="date-box">
+                <span class="date-month">DEC</span>
+                <span class="date-day">05</span>
+            </div>
+            <div class="venue-info">
+                <div class="city">SACRAMENTO, CA</div>
+                <div class="venue-name">Golden 1 Center (New Date)</div>
+            </div>
+            <a href="https://www.ticketmaster.com/thomas-rhett-tickets/artist/1592857" class="ticket-btn">TICKETS</a>
+        </div>
+        
+        <div class="tour-date">
+            <div class="date-box">
+                <span class="date-month">DEC</span>
+                <span class="date-day">06</span>
+            </div>
+            <div class="venue-info">
+                <div class="city">FRESNO, CA</div>
+                <div class="venue-name">Save Mart Center (New Date)</div>
+            </div>
+            <a href="https://www.ticketmaster.com/thomas-rhett-tickets/artist/1592857" class="ticket-btn">TICKETS</a>
+        </div>
+        
+        <div class="tour-date">
+            <div class="date-box">
+                <span class="date-month">FEB</span>
+                <span class="date-day">11</span>
+            </div>
+            <div class="venue-info">
+                <div class="city">NASHVILLE, TN</div>
+                <div class="venue-name">Opry House (Conservation Aid)</div>
+            </div>
+            <a href="https://www.axs.com/artists/210436/thomas-rhett-tickets" class="ticket-btn">TICKETS</a>
+        </div>
+
+        <div class="tour-date">
+            <div class="date-box">
+                <span class="date-month">APR</span>
+                <span class="date-day">10</span>
+            </div>
+            <div class="venue-info">
+                <div class="city">MINNEAPOLIS, MN</div>
+                <div class="venue-name">U.S. Bank Stadium (w/ Morgan Wallen)</div>
+            </div>
+            <a href="https://www.ticketmaster.com/thomas-rhett-tickets/artist/1592857" class="ticket-btn">TICKETS</a>
+        </div>
+        
+        <div class="tour-date">
+            <div class="date-box">
+                <span class="date-month">JUL</span>
+                <span class="date-day">31</span>
+            </div>
+            <div class="venue-info">
+                <div class="city">LONDON, UK</div>
+                <div class="venue-name">Wembley Stadium (w/ Luke Combs)</div>
+            </div>
+            <a href="https://www.axs.com/artists/210436/thomas-rhett-tickets" class="ticket-btn">TICKETS</a>
+        </div>
+
+        <div class="tour-date">
+            <div class="date-box">
+                <span class="date-month">AUG</span>
+                <span class="date-day">06</span>
+            </div>
+            <div class="venue-info">
+                <div class="city">DETROIT LAKES, MN</div>
+                <div class="venue-name">WE Fest 2026</div>
+            </div>
+            <a href="https://www.ticketmaster.com/thomas-rhett-tickets/artist/1592857" class="ticket-btn">TICKETS</a>
+        </div>
+
+        <h2 class="section-title">Connect & Community</h2>
+        
+        <a href="https://t.me/thomasrhett_fanhub_unofficial" class="btn btn-telegram">📣 Unofficial Telegram Fan Updates</a>
+        <a href="https://www.tiktok.com/@thomasrhett" class="btn">📱 Official TikTok</a>
+        <a href="https://instagram.com/thomasrhettakins" class="btn">📸 Instagram</a>
+        
+        <footer>
+            <p>Home Team Fan Hub | Version 5.0 | Not officially affiliated with Thomas Rhett or BMLG.</p>
+        </footer>
+    </div>
+
+    <div class="floating-panel">
+        <div class="panel-tab">FAN CARDS</div>
+        
+        <h3 style="text-align: center; color: var(--accent-color); font-size: 1.2rem;">Home Team Fan Card Tiers</h3>
+
+        <div class="tier-card tier-bronze">
+            <h4>BRONZE CARD</h4>
+            <div class="tier-price">$80 USD</div>
+            <ul class="tier-perks">
+                <li>✅ Souvenir Ticket (Physical Card)</li>
+                <li>✅ 10% Merch Store Discount</li>
+                <li>✅ Fan Forum Community Access</li>
+            </ul>
+        </div>
+        
+        <div class="tier-card tier-silver">
+            <h4>SILVER CARD</h4>
+            <div class="tier-price">$160 USD</div>
+            <ul class="tier-perks">
+                <li>**Everything in Bronze, PLUS:**</li>
+                <li>⭐ **Priority** Pre-Sale Access</li>
+                <li>⭐ Exclusive **VIP Gift Item** (Hat/Pin Set)</li>
+                <li>⭐ Access to Seat Upgrade Lotteries</li>
+            </ul>
+        </div>
+
+        <div class="tier-card tier-gold">
+            <h4>GOLD CARD</h4>
+            <div class="tier-price">$300 USD</div>
+            <ul class="tier-perks">
+                <li>**Everything in Silver, PLUS:**</li>
+                <li>🏆 **Access to VIP Lounge** (Venue Dependant)</li>
+                <li>🏆 **Priority M&G Lottery** Entry</li>
+                <li>🏆 Limited Edition Signed Tour Poster</li>
+            </ul>
+        </div>
+        
+        <a href="https://t.me/thomasrhett_fanhub_unofficial" class="btn btn-telegram" style="margin-top: 15px; font-size: 0.9rem; padding: 10px;">
+            💎 Text Admin for SECRET Package
+        </a>
+    </div>
+
+    <script>
+        // Mini Game Logic (NEW JAVASCRIPT)
+        function checkAnswer(answer) {
+            const resultElement = document.getElementById('quiz-result');
+            // The first major life change mentioned in 'Life Changes' is getting a record deal.
+            if (answer === 'record') {
+                resultElement.textContent = '✅ CORRECT! "First time I heard me on the radio, I thought that I had made it."';
+                resultElement.style.color = '#4CAF50'; // Green
+            } else {
+                resultElement.textContent = '❌ INCORRECT. Try again, or stream the song!';
+                resultElement.style.color = '#F44336'; // Red
+            }
+        }
+    </script>
+
+</body>
+</html>
+
