@@ -3,175 +3,237 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thomas Rhett | Home Team Space</title>
+    <title>Thomas Rhett | Home Team Space | Elite Concierge</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
     <style>
         :root {
             --bg: #05070a;
-            --denim: #111827;
-            --copper: #c27856;
+            --surface: #111827;
+            --accent: #c27856; /* About A Woman Copper */
+            --gold: #d4af37;
             --cream: #f8f5f2;
-            --discount-text: #10b981;
+            --discount: #10b981;
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
+        /* --- THEME OVERRIDES --- */
+        body.theme-texas { --bg: #0f0505; --accent: #d9480f; --surface: #2b1111; }
+        body.theme-tennessee { --bg: #050a0f; --accent: #3b82f6; --surface: #111d2b; }
+        body.theme-uk { --bg: #0a050f; --accent: #8b5cf6; --surface: #1e112b; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--cream);
-            background-image: radial-gradient(circle at top right, #1a2333 0%, transparent 50%);
-            margin: 0; padding: 20px;
+            line-height: 1.6;
+            transition: background-color var(--transition);
+            background-image: radial-gradient(circle at top right, rgba(255,255,255,0.03) 0%, transparent 50%);
         }
 
-        .container { max-width: 650px; margin: 0 auto; text-align: center; }
+        .container { max-width: 700px; margin: 0 auto; padding: 40px 20px; text-align: center; }
 
-        /* --- THE IMAGE FIX --- */
-        .profile-container {
-            width: 220px;
-            height: 220px;
-            margin: 0 auto 20px;
-            position: relative;
-        }
-        .profile-badge {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 4px solid var(--copper);
-            object-fit: cover; /* Keeps image from stretching */
-            background-color: #1a2333; /* Fallback color if image fails */
-            display: block;
-            box-shadow: 0 0 30px rgba(194, 120, 86, 0.4);
+        /* --- HERO & FRAME --- */
+        .hero-container { position: relative; width: 220px; height: 220px; margin: 0 auto 20px; }
+        .hero-badge {
+            width: 100%; height: 100%; border-radius: 50%;
+            border: 4px solid var(--accent); padding: 6px;
+            object-fit: cover; display: block;
+            box-shadow: 0 0 40px rgba(0,0,0,0.5);
+            transition: border-color var(--transition);
         }
 
+        /* --- ACTION BUTTONS --- */
+        .stream-btn {
+            display: inline-block; background: var(--accent); color: #000;
+            padding: 12px 30px; border-radius: 50px; font-weight: 900;
+            text-decoration: none; text-transform: uppercase; letter-spacing: 2px;
+            font-size: 0.8rem; margin-bottom: 30px; transition: var(--transition);
+        }
+        .stream-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
+
+        .selector-box {
+            background: var(--surface); padding: 12px 20px; border-radius: 50px;
+            margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        select { background: transparent; color: var(--accent); border: none; font-weight: 800; outline: none; cursor: pointer; }
+
+        /* --- THE DIVE CONTENT --- */
         .order-panel {
-            background: var(--denim);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 24px;
-            padding: 35px;
-            text-align: left;
-            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            background: var(--surface); border-radius: 30px; padding: 40px; text-align: left;
+            border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 60px rgba(0,0,0,0.5);
         }
 
-        .section-label { font-size: 0.7rem; font-weight: 800; color: var(--copper); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: block; }
-
+        .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; }
         .tier-card {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid #334155;
-            padding: 15px;
-            border-radius: 12px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: 0.2s;
+            background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
+            padding: 15px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s;
         }
-        .tier-card.active { border-color: var(--copper); background: rgba(194, 120, 86, 0.15); }
+        .tier-card.active { border-color: var(--accent); background: rgba(255,255,255,0.05); transform: translateY(-3px); }
 
-        .upsell-item {
-            display: flex; align-items: center; justify-content: space-between;
-            padding: 12px; border-radius: 10px; margin-bottom: 8px;
-            background: rgba(255,255,255,0.02); cursor: pointer;
+        .addon-row {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 10px;
+            cursor: pointer; border: 1px solid transparent;
         }
-        .upsell-item.selected { border: 1px solid var(--copper); }
+        .addon-row:hover { border-color: rgba(255,255,255,0.1); }
 
-        .gift-card-box {
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px dashed var(--discount-text);
-            padding: 15px; border-radius: 12px; margin: 20px 0;
-            display: flex; align-items: center; gap: 10px; cursor: pointer;
+        .discount-bar {
+            background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--discount);
+            padding: 15px; border-radius: 12px; margin: 25px 0; display: flex; 
+            justify-content: space-between; align-items: center; cursor: pointer;
         }
 
         .total-display {
-            background: #000; padding: 20px; border-radius: 15px;
-            display: flex; justify-content: space-between; align-items: center;
-            border: 1px solid var(--copper); margin-bottom: 20px;
+            background: #000; padding: 25px; border-radius: 15px; border: 1px solid var(--accent);
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
         }
 
+        /* --- FORM --- */
         input {
-            width: 100%; padding: 15px; background: #000; border: 1px solid #334155;
-            border-radius: 10px; color: white; margin-bottom: 10px;
+            width: 100%; padding: 18px; background: #000; border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px; color: #fff; margin-bottom: 15px;
+        }
+        .btn-invoice {
+            width: 100%; background: var(--accent); color: white; padding: 20px;
+            border: none; border-radius: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase;
         }
 
-        .btn-submit {
-            width: 100%; background: var(--copper); color: white; padding: 18px;
-            border: none; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 1rem;
-        }
+        /* --- SOCIALS PLACEHOLDER --- */
+        .socials { margin-top: 40px; display: flex; justify-content: center; gap: 20px; opacity: 0.5; }
+        .social-circle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--cream); }
+
     </style>
 </head>
-<body>
+<body class="theme-default">
 
 <div class="container">
-    <div class="profile-container">
-        <img src="./hero.jpg" alt="Home Team Elite" class="profile-badge">
+    <div class="hero-container">
+        <img src="./hero.jpg" alt="Home Team Elite" class="hero-badge">
     </div>
 
-    <h1 style="font-family:'Playfair Display'; font-size: 2.2rem;">HOME TEAM SPACE</h1>
-    <p style="color:var(--copper); letter-spacing:2px; font-size:0.8rem; margin-bottom:30px;">OFFICIAL 2026 FAN CONCIERGE</p>
+    <a href="https://thomasrhett.lnk.to/AboutAWoman" target="_blank" class="stream-btn">Stream "About A Woman"</a>
+
+    <h1 style="font-family:'Playfair Display'; font-size: 2.5rem;">HOME TEAM <span id="env-title">SPACE</span></h1>
+    
+    <div class="selector-box">
+        <span style="font-size: 0.7rem; font-weight: 800; opacity: 0.7;">SELECT ENVIRONMENT</span>
+        <select id="env-select" onchange="updateEnv()">
+            <option value="default">Global Hub</option>
+            <option value="texas">Texas Hub</option>
+            <option value="tennessee">Tennessee Hub</option>
+            <option value="uk">United Kingdom</option>
+        </select>
+    </div>
 
     <div class="order-panel">
-        <span class="section-label">Select Membership Tier</span>
-        <div class="tier-card active" onclick="setBase(35, this)">
-            <strong>Gold Fan Card</strong> — $35.00
-            <p style="font-size:0.75rem; color:#94a3b8; margin:0;">Includes 2026 Stadium Tour Presale ID</p>
+        <p id="env-note" style="font-size: 0.8rem; color: var(--accent); font-weight: 800; margin-bottom: 20px; text-transform: uppercase;"></p>
+
+        <span style="font-size: 0.7rem; font-weight: 800; opacity: 0.5;">MEMBERSHIP TIER</span>
+        <div class="tier-grid">
+            <div class="tier-card active" onclick="setBase(35, this)"><strong>GOLD</strong><br><small>$35</small></div>
+            <div class="tier-card" onclick="setBase(25, this)"><strong>SILVER</strong><br><small>$25</small></div>
+            <div class="tier-card" onclick="setBase(15, this)"><strong>BRONZE</strong><br><small>$15</small></div>
         </div>
 
-        <span class="section-label" style="margin-top:20px;">Premium Add-ons</span>
-        <div class="upsell-item" onclick="toggleAddon(150, this)">
-            <span>Luke Combs Tour Sync</span>
-            <span style="color:var(--copper); font-weight:800;">+$150</span>
-        </div>
-        <div class="upsell-item" onclick="toggleAddon(85, this)">
-            <span>Signed 'About A Woman' Vinyl</span>
-            <span style="color:var(--copper); font-weight:800;">+$85</span>
+        <span style="font-size: 0.7rem; font-weight: 800; opacity: 0.5;">CONCIERGE ADD-ONS</span>
+        <div style="margin: 15px 0;">
+            <div class="addon-row" onclick="toggleAddon(150, this)">
+                <span>Luke Combs Sync Access</span>
+                <span style="color:var(--accent); font-weight:800;">+$150</span>
+            </div>
+            <div class="addon-row" onclick="toggleAddon(85, this)">
+                <span>Signed Vinyl (Presale)</span>
+                <span style="color:var(--accent); font-weight:800;">+$85</span>
+            </div>
         </div>
 
-        <div class="gift-card-box" onclick="toggleGC()">
-            <input type="checkbox" id="gccheck">
-            <label style="font-size:0.85rem; color:var(--discount-text); cursor:pointer;">
-                <strong>Gift Card Discount (5% OFF)</strong><br>
-                Steam / Amazon / Razer Gold
-            </label>
+        <div class="discount-bar" onclick="toggleGC()">
+            <div>
+                <strong style="color:var(--discount);">GIFT CARD METHOD (5% OFF)</strong>
+                <p style="font-size: 0.65rem; opacity: 0.7;">Steam, Amazon, Razer Gold</p>
+            </div>
+            <input type="checkbox" id="gc-check" style="width:auto;">
         </div>
 
         <div class="total-display">
-            <span style="font-size:0.8rem;">TOTAL DUE:</span>
-            <span id="final-price" style="font-size:1.8rem; font-weight:800;">$35.00</span>
+            <span style="font-size: 0.75rem; font-weight: 800;">INVOICE ESTIMATE:</span>
+            <span id="total-price" style="font-size: 1.8rem; font-weight: 900;">$35.00</span>
         </div>
 
-        <input type="text" id="fname" placeholder="Full Legal Name">
-        <input type="email" id="femail" placeholder="Email for Secure Invoice">
-        <button class="btn-submit" onclick="submitOrder()">Request Secure Invoice</button>
+        <form>
+            <input type="text" placeholder="Full Name" required>
+            <input type="email" placeholder="Email for Secure Invoice" required>
+            <button type="button" class="btn-invoice" onclick="alert('Concierge Request Logged. Verification email sent.')">Request Secure Invoice</button>
+        </form>
     </div>
+
+    <div class="socials">
+        <div class="social-circle"></div>
+        <div class="social-circle"></div>
+        <div class="social-circle"></div>
+    </div>
+    <p style="font-size:0.6rem; opacity:0.3; margin-top:20px;">© 2026 Home Team Agency. Not affiliated directly with Spotify/Apple.</p>
 </div>
 
 <script>
     let base = 35;
-    let addons = 0;
-    let discount = false;
+    let extras = 0;
+    let discountActive = false;
 
-    function setBase(p, el) { base = p; calc(); }
-    
+    function updateEnv() {
+        const val = document.getElementById('env-select').value;
+        const body = document.body;
+        const title = document.getElementById('env-title');
+        const note = document.getElementById('env-note');
+
+        body.className = 'theme-' + val;
+
+        const data = {
+            texas: { title: "TEXAS", note: "Unlocked: Arlington & Austin Stadium Priority" },
+            tennessee: { title: "TENNESSEE", note: "Unlocked: Nashville Bridgestone VIP Lounge" },
+            uk: { title: "LONDON", note: "Unlocked: Wembley & Europe Tour Shipping" },
+            default: { title: "SPACE", note: "" }
+        };
+
+        title.innerText = data[val].title;
+        note.innerText = data[val].note;
+    }
+
+    function setBase(p, el) {
+        document.querySelectorAll('.tier-card').forEach(t => t.classList.remove('active'));
+        el.classList.add('active');
+        base = p;
+        calc();
+    }
+
     function toggleAddon(p, el) {
-        el.classList.toggle('selected');
-        if(el.classList.contains('selected')) addons += p;
-        else addons -= p;
+        el.classList.toggle('active-addon');
+        if(el.classList.contains('active-addon')) {
+            extras += p;
+            el.style.borderColor = 'var(--accent)';
+        } else {
+            extras -= p;
+            el.style.borderColor = 'transparent';
+        }
         calc();
     }
 
     function toggleGC() {
-        discount = !discount;
-        document.getElementById('gccheck').checked = discount;
+        discountActive = !discountActive;
+        document.getElementById('gc-check').checked = discountActive;
         calc();
     }
 
     function calc() {
-        let total = base + addons;
-        if(discount) total *= 0.95;
-        document.getElementById('final-price').innerText = `$${total.toFixed(2)}`;
-    }
-
-    function submitOrder() {
-        alert("Invoice request sent! Check your email for the secure payment portal.");
+        let total = base + extras;
+        if(discountActive) total *= 0.95;
+        document.getElementById('total-price').innerText = `$${total.toFixed(2)}`;
     }
 </script>
 
 </body>
 </html>
+
