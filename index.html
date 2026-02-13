@@ -3,237 +3,337 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thomas Rhett | Home Team Space | Elite Concierge</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
+    <title>Thomas Rhett | Home Team Gravity | Elite Access</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     
     <style>
         :root {
-            --bg: #05070a;
-            --surface: #111827;
-            --accent: #c27856; /* About A Woman Copper */
-            --gold: #d4af37;
-            --cream: #f8f5f2;
-            --discount: #10b981;
-            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --bg-deep: #030305;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --copper: #c27856; /* TR Brand Color */
+            --copper-glow: rgba(194, 120, 86, 0.4);
+            --neon-blue: #5ce1e6;
+            --text-main: #ffffff;
+            --text-mute: #8888aa;
+            --transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        /* --- THEME OVERRIDES --- */
-        body.theme-texas { --bg: #0f0505; --accent: #d9480f; --surface: #2b1111; }
-        body.theme-tennessee { --bg: #050a0f; --accent: #3b82f6; --surface: #111d2b; }
-        body.theme-uk { --bg: #0a050f; --accent: #8b5cf6; --surface: #1e112b; }
+        /* --- THEME STATES --- */
+        body.theme-texas { --copper: #ff4d00; --copper-glow: rgba(255, 77, 0, 0.4); }
+        body.theme-tennessee { --copper: #3b82f6; --copper-glow: rgba(59, 130, 246, 0.4); }
+        body.theme-uk { --copper: #8b5cf6; --copper-glow: rgba(139, 92, 246, 0.4); }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * { box-sizing: border-box; margin: 0; padding: 0; outline: none; }
+        
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--cream);
-            line-height: 1.6;
-            transition: background-color var(--transition);
-            background-image: radial-gradient(circle at top right, rgba(255,255,255,0.03) 0%, transparent 50%);
+            background-color: var(--bg-deep);
+            color: var(--text-main);
+            font-family: 'Space Grotesk', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
         }
 
-        .container { max-width: 700px; margin: 0 auto; padding: 40px 20px; text-align: center; }
-
-        /* --- HERO & FRAME --- */
-        .hero-container { position: relative; width: 220px; height: 220px; margin: 0 auto 20px; }
-        .hero-badge {
-            width: 100%; height: 100%; border-radius: 50%;
-            border: 4px solid var(--accent); padding: 6px;
-            object-fit: cover; display: block;
-            box-shadow: 0 0 40px rgba(0,0,0,0.5);
-            transition: border-color var(--transition);
+        /* --- SPACE BACKGROUND FX (CSS ONLY / NO IMAGES) --- */
+        .stars {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none; z-index: -1;
+            background-image: 
+                radial-gradient(1px 1px at 10% 10%, #fff, transparent),
+                radial-gradient(2px 2px at 20% 20%, #fff, transparent),
+                radial-gradient(1px 1px at 30% 30%, #fff, transparent),
+                radial-gradient(2px 2px at 40% 40%, var(--copper), transparent),
+                radial-gradient(1px 1px at 50% 50%, #fff, transparent),
+                radial-gradient(2px 2px at 60% 60%, #fff, transparent),
+                radial-gradient(1px 1px at 70% 70%, #fff, transparent),
+                radial-gradient(2px 2px at 80% 80%, #fff, transparent),
+                radial-gradient(1px 1px at 90% 90%, var(--copper), transparent);
+            background-size: 550px 550px;
+            opacity: 0.6;
+            animation: star-drift 100s linear infinite;
         }
 
-        /* --- ACTION BUTTONS --- */
-        .stream-btn {
-            display: inline-block; background: var(--accent); color: #000;
-            padding: 12px 30px; border-radius: 50px; font-weight: 900;
-            text-decoration: none; text-transform: uppercase; letter-spacing: 2px;
-            font-size: 0.8rem; margin-bottom: 30px; transition: var(--transition);
-        }
-        .stream-btn:hover { transform: scale(1.05); filter: brightness(1.2); }
+        @keyframes star-drift { from { background-position: 0 0; } to { background-position: 1000px 1000px; } }
 
-        .selector-box {
-            background: var(--surface); padding: 12px 20px; border-radius: 50px;
-            margin-bottom: 40px; border: 1px solid rgba(255,255,255,0.1);
+        .nebula-glow {
+            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 80vw; height: 80vw;
+            background: radial-gradient(circle, var(--copper-glow) 0%, transparent 60%);
+            opacity: 0.15; z-index: -1;
+            filter: blur(80px);
+            transition: background var(--transition);
+        }
+
+        /* --- MAIN LAYOUT --- */
+        .interface-container {
+            width: 100%; max-width: 600px;
+            padding: 20px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        /* --- HEADER --- */
+        header { text-align: center; margin-bottom: 40px; position: relative; }
+        
+        .hero-disc {
+            width: 140px; height: 140px; margin: 0 auto 25px;
+            border-radius: 50%;
+            background: #111;
+            border: 1px solid var(--copper);
+            box-shadow: 0 0 30px var(--copper-glow);
+            overflow: hidden;
+            position: relative;
+        }
+        .hero-disc img { width: 100%; height: 100%; object-fit: cover; opacity: 0.9; }
+        
+        .artist-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem; letter-spacing: -1px;
+            background: linear-gradient(to bottom, #fff, #aaa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .sub-title {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 4px;
+            color: var(--copper); font-weight: 700; margin-top: 5px;
+            text-shadow: 0 0 10px var(--copper-glow);
+        }
+
+        /* --- CONTROL PANEL (Glassmorphism) --- */
+        .control-panel {
+            background: var(--glass);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        /* --- TABS --- */
+        .orbit-selector {
+            display: flex; gap: 5px; background: rgba(0,0,0,0.3);
+            padding: 5px; border-radius: 12px; margin-bottom: 30px;
+        }
+        .orbit-btn {
+            flex: 1; padding: 10px; border: none; background: transparent;
+            color: var(--text-mute); font-family: 'Space Grotesk'; font-size: 0.7rem;
+            font-weight: 700; text-transform: uppercase; cursor: pointer;
+            border-radius: 8px; transition: var(--transition);
+        }
+        .orbit-btn:hover { color: #fff; }
+        .orbit-btn.active { background: var(--copper); color: #000; box-shadow: 0 4px 15px var(--copper-glow); }
+
+        .status-line {
             display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 20px; font-size: 0.8rem;
         }
-        select { background: transparent; color: var(--accent); border: none; font-weight: 800; outline: none; cursor: pointer; }
+        .blink { width: 6px; height: 6px; background: var(--copper); border-radius: 50%; display: inline-block; margin-right: 5px; animation: blinker 2s infinite; }
 
-        /* --- THE DIVE CONTENT --- */
-        .order-panel {
-            background: var(--surface); border-radius: 30px; padding: 40px; text-align: left;
-            border: 1px solid rgba(255,255,255,0.05); box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-        }
-
-        .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 25px 0; }
+        /* --- TIERS --- */
+        .tier-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 30px; }
         .tier-card {
-            background: rgba(0,0,0,0.2); border: 1px solid rgba(255,255,255,0.1);
-            padding: 15px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s;
+            background: rgba(255,255,255,0.02); border: 1px solid var(--glass-border);
+            border-radius: 16px; padding: 15px 5px; text-align: center; cursor: pointer;
+            transition: var(--transition); position: relative; overflow: hidden;
         }
-        .tier-card.active { border-color: var(--accent); background: rgba(255,255,255,0.05); transform: translateY(-3px); }
+        .tier-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.3); }
+        .tier-card.active {
+            background: linear-gradient(180deg, rgba(255,255,255,0.05), rgba(255,255,255,0));
+            border-color: var(--copper);
+        }
+        .tier-name { display: block; font-size: 0.7rem; font-weight: 700; color: var(--text-mute); letter-spacing: 1px; }
+        .tier-price { font-size: 1.2rem; font-weight: 700; color: #fff; margin-top: 5px; }
 
-        .addon-row {
+        /* --- ADDONS --- */
+        .addon-item {
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px; background: rgba(255,255,255,0.02); border-radius: 12px; margin-bottom: 10px;
-            cursor: pointer; border: 1px solid transparent;
+            padding: 15px; border-radius: 12px; border: 1px solid transparent;
+            background: rgba(255,255,255,0.02); margin-bottom: 8px; cursor: pointer;
+            transition: var(--transition);
         }
-        .addon-row:hover { border-color: rgba(255,255,255,0.1); }
-
-        .discount-bar {
-            background: rgba(16, 185, 129, 0.1); border: 1px dashed var(--discount);
-            padding: 15px; border-radius: 12px; margin: 25px 0; display: flex; 
-            justify-content: space-between; align-items: center; cursor: pointer;
+        .addon-item:hover { background: rgba(255,255,255,0.05); }
+        .addon-item.selected { border-color: var(--copper); background: rgba(194, 120, 86, 0.05); }
+        .check-circle {
+            width: 18px; height: 18px; border: 2px solid var(--text-mute); border-radius: 50%;
+            margin-right: 10px; display: inline-block; vertical-align: middle;
         }
+        .addon-item.selected .check-circle { background: var(--copper); border-color: var(--copper); }
 
-        .total-display {
-            background: #000; padding: 25px; border-radius: 15px; border: 1px solid var(--accent);
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px;
+        /* --- FOOTER & TOTAL --- */
+        .calc-area {
+            margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--glass-border);
+            display: flex; justify-content: space-between; align-items: flex-end;
         }
-
-        /* --- FORM --- */
-        input {
-            width: 100%; padding: 18px; background: #000; border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px; color: #fff; margin-bottom: 15px;
+        .total-label { font-size: 0.7rem; color: var(--text-mute); text-transform: uppercase; }
+        .total-amount { font-size: 2.2rem; font-family: 'Playfair Display'; line-height: 1; }
+        
+        .action-btn {
+            width: 100%; margin-top: 25px; padding: 18px;
+            background: #fff; color: #000; border: none; border-radius: 12px;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            cursor: pointer; transition: var(--transition);
         }
-        .btn-invoice {
-            width: 100%; background: var(--accent); color: white; padding: 20px;
-            border: none; border-radius: 12px; font-weight: 800; cursor: pointer; text-transform: uppercase;
-        }
+        .action-btn:hover { background: var(--copper); box-shadow: 0 0 30px var(--copper-glow); }
 
-        /* --- SOCIALS PLACEHOLDER --- */
-        .socials { margin-top: 40px; display: flex; justify-content: center; gap: 20px; opacity: 0.5; }
-        .social-circle { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--cream); }
+        /* --- UTILS --- */
+        @keyframes blinker { 50% { opacity: 0; } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* Hide Default Checkbox */
+        .hidden-check { display: none; }
     </style>
 </head>
 <body class="theme-default">
 
-<div class="container">
-    <div class="hero-container">
-        <img src="./hero.jpg" alt="Home Team Elite" class="hero-badge">
-    </div>
+    <div class="stars"></div>
+    <div class="nebula-glow"></div>
 
-    <a href="https://thomasrhett.lnk.to/AboutAWoman" target="_blank" class="stream-btn">Stream "About A Woman"</a>
-
-    <h1 style="font-family:'Playfair Display'; font-size: 2.5rem;">HOME TEAM <span id="env-title">SPACE</span></h1>
-    
-    <div class="selector-box">
-        <span style="font-size: 0.7rem; font-weight: 800; opacity: 0.7;">SELECT ENVIRONMENT</span>
-        <select id="env-select" onchange="updateEnv()">
-            <option value="default">Global Hub</option>
-            <option value="texas">Texas Hub</option>
-            <option value="tennessee">Tennessee Hub</option>
-            <option value="uk">United Kingdom</option>
-        </select>
-    </div>
-
-    <div class="order-panel">
-        <p id="env-note" style="font-size: 0.8rem; color: var(--accent); font-weight: 800; margin-bottom: 20px; text-transform: uppercase;"></p>
-
-        <span style="font-size: 0.7rem; font-weight: 800; opacity: 0.5;">MEMBERSHIP TIER</span>
-        <div class="tier-grid">
-            <div class="tier-card active" onclick="setBase(35, this)"><strong>GOLD</strong><br><small>$35</small></div>
-            <div class="tier-card" onclick="setBase(25, this)"><strong>SILVER</strong><br><small>$25</small></div>
-            <div class="tier-card" onclick="setBase(15, this)"><strong>BRONZE</strong><br><small>$15</small></div>
-        </div>
-
-        <span style="font-size: 0.7rem; font-weight: 800; opacity: 0.5;">CONCIERGE ADD-ONS</span>
-        <div style="margin: 15px 0;">
-            <div class="addon-row" onclick="toggleAddon(150, this)">
-                <span>Luke Combs Sync Access</span>
-                <span style="color:var(--accent); font-weight:800;">+$150</span>
+    <div class="interface-container">
+        
+        <header>
+            <div class="hero-disc">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Thomas_Rhett_2019_by_Glenn_Francis.jpg/440px-Thomas_Rhett_2019_by_Glenn_Francis.jpg" alt="Thomas Rhett">
             </div>
-            <div class="addon-row" onclick="toggleAddon(85, this)">
-                <span>Signed Vinyl (Presale)</span>
-                <span style="color:var(--accent); font-weight:800;">+$85</span>
+            <h1 class="artist-name">THOMAS RHETT</h1>
+            <div class="sub-title">HOME TEAM SPACE • <span id="env-display">GLOBAL</span></div>
+            
+            <a href="https://thomasrhett.lnk.to/AboutAWoman" target="_blank" style="text-decoration:none;">
+                <div style="margin-top:15px; font-size:0.7rem; color:var(--copper); border:1px solid var(--copper); display:inline-block; padding:8px 20px; border-radius:50px; opacity:0.8; transition:0.3s;" onmouseover="this.style.background='var(--copper)'; this.style.color='#000'" onmouseout="this.style.background='transparent'; this.style.color='var(--copper)'">
+                    ▶ STREAM "ABOUT A WOMAN"
+                </div>
+            </a>
+        </header>
+
+        <div class="control-panel">
+            
+            <div class="orbit-selector">
+                <button class="orbit-btn active" onclick="switchTheme('default', this)">Global</button>
+                <button class="orbit-btn" onclick="switchTheme('texas', this)">Texas</button>
+                <button class="orbit-btn" onclick="switchTheme('tennessee', this)">Nashville</button>
+                <button class="orbit-btn" onclick="switchTheme('uk', this)">London</button>
             </div>
-        </div>
 
-        <div class="discount-bar" onclick="toggleGC()">
-            <div>
-                <strong style="color:var(--discount);">GIFT CARD METHOD (5% OFF)</strong>
-                <p style="font-size: 0.65rem; opacity: 0.7;">Steam, Amazon, Razer Gold</p>
+            <div class="status-line">
+                <span style="color:var(--copper); font-weight:bold;"><span class="blink"></span> SYSTEM ACTIVE</span>
+                <span id="zone-note" style="opacity:0.6;">Standard Access</span>
             </div>
-            <input type="checkbox" id="gc-check" style="width:auto;">
-        </div>
 
-        <div class="total-display">
-            <span style="font-size: 0.75rem; font-weight: 800;">INVOICE ESTIMATE:</span>
-            <span id="total-price" style="font-size: 1.8rem; font-weight: 900;">$35.00</span>
-        </div>
+            <div class="tier-grid">
+                <div class="tier-card active" onclick="selectTier(35, this)">
+                    <span class="tier-name">GOLD</span>
+                    <div class="tier-price">$35</div>
+                </div>
+                <div class="tier-card" onclick="selectTier(25, this)">
+                    <span class="tier-name">SILVER</span>
+                    <div class="tier-price">$25</div>
+                </div>
+                <div class="tier-card" onclick="selectTier(15, this)">
+                    <span class="tier-name">BRONZE</span>
+                    <div class="tier-price">$15</div>
+                </div>
+            </div>
 
-        <form>
-            <input type="text" placeholder="Full Name" required>
-            <input type="email" placeholder="Email for Secure Invoice" required>
-            <button type="button" class="btn-invoice" onclick="alert('Concierge Request Logged. Verification email sent.')">Request Secure Invoice</button>
-        </form>
+            <div class="addon-item" onclick="toggleAddon(150, this)">
+                <div>
+                    <span class="check-circle"></span>
+                    <span style="font-weight:500;">Luke Combs Sync</span>
+                </div>
+                <span style="color:var(--text-mute);">+$150</span>
+            </div>
+
+            <div class="addon-item" onclick="toggleAddon(85, this)">
+                <div>
+                    <span class="check-circle"></span>
+                    <span style="font-weight:500;">Vinyl Presale</span>
+                </div>
+                <span style="color:var(--text-mute);">+$85</span>
+            </div>
+
+            <div class="addon-item" onclick="toggleDiscount(this)">
+                <div>
+                    <span class="check-circle"></span>
+                    <span style="font-weight:500; color: #10b981;">Gift Card Pay (5% Off)</span>
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; display:grid; gap:10px;">
+                <input type="text" placeholder="ENTER CALLSIGN (NAME)" style="width:100%; padding:15px; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:12px;">
+                <input type="email" placeholder="SECURE COMM (EMAIL)" style="width:100%; padding:15px; background:rgba(0,0,0,0.3); border:1px solid var(--glass-border); color:white; border-radius:12px;">
+            </div>
+
+            <div class="calc-area">
+                <div>
+                    <div class="total-label">Estimated Invoice</div>
+                    <div style="font-size:0.6rem; opacity:0.5;">Secure Encryption 256-bit</div>
+                </div>
+                <div class="total-amount" id="total-display">$35.00</div>
+            </div>
+
+            <button class="action-btn" onclick="alert('System initializing invoice generation...')">INITIATE SEQUENCE</button>
+
+        </div>
+        
+        <p style="text-align:center; font-size:0.6rem; opacity:0.2; margin-top:30px;">
+            HOME TEAM ELITE © 2026. ATMOSPHERIC RENDER V2.
+        </p>
+
     </div>
 
-    <div class="socials">
-        <div class="social-circle"></div>
-        <div class="social-circle"></div>
-        <div class="social-circle"></div>
-    </div>
-    <p style="font-size:0.6rem; opacity:0.3; margin-top:20px;">© 2026 Home Team Agency. Not affiliated directly with Spotify/Apple.</p>
-</div>
+    <script>
+        let currentBase = 35;
+        let addonTotal = 0;
+        let isDiscounted = false;
 
-<script>
-    let base = 35;
-    let extras = 0;
-    let discountActive = false;
+        function switchTheme(theme, btn) {
+            // Visual Updates
+            document.body.className = 'theme-' + theme;
+            document.querySelectorAll('.orbit-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
 
-    function updateEnv() {
-        const val = document.getElementById('env-select').value;
-        const body = document.body;
-        const title = document.getElementById('env-title');
-        const note = document.getElementById('env-note');
+            // Data Updates
+            const notes = {
+                default: { note: "Standard Access", text: "GLOBAL" },
+                texas: { note: "AT&T Stadium Priority Link", text: "TEXAS SECTOR" },
+                tennessee: { note: "Bridgestone Arena VIP Lounge", text: "NASHVILLE HQ" },
+                uk: { note: "International Shipping Unlocked", text: "LONDON HUB" }
+            };
 
-        body.className = 'theme-' + val;
-
-        const data = {
-            texas: { title: "TEXAS", note: "Unlocked: Arlington & Austin Stadium Priority" },
-            tennessee: { title: "TENNESSEE", note: "Unlocked: Nashville Bridgestone VIP Lounge" },
-            uk: { title: "LONDON", note: "Unlocked: Wembley & Europe Tour Shipping" },
-            default: { title: "SPACE", note: "" }
-        };
-
-        title.innerText = data[val].title;
-        note.innerText = data[val].note;
-    }
-
-    function setBase(p, el) {
-        document.querySelectorAll('.tier-card').forEach(t => t.classList.remove('active'));
-        el.classList.add('active');
-        base = p;
-        calc();
-    }
-
-    function toggleAddon(p, el) {
-        el.classList.toggle('active-addon');
-        if(el.classList.contains('active-addon')) {
-            extras += p;
-            el.style.borderColor = 'var(--accent)';
-        } else {
-            extras -= p;
-            el.style.borderColor = 'transparent';
+            document.getElementById('zone-note').innerText = notes[theme].note;
+            document.getElementById('env-display').innerText = notes[theme].text;
         }
-        calc();
-    }
 
-    function toggleGC() {
-        discountActive = !discountActive;
-        document.getElementById('gc-check').checked = discountActive;
-        calc();
-    }
+        function selectTier(price, card) {
+            currentBase = price;
+            document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('active'));
+            card.classList.add('active');
+            calculate();
+        }
 
-    function calc() {
-        let total = base + extras;
-        if(discountActive) total *= 0.95;
-        document.getElementById('total-price').innerText = `$${total.toFixed(2)}`;
-    }
-</script>
+        function toggleAddon(price, row) {
+            row.classList.toggle('selected');
+            if(row.classList.contains('selected')) {
+                addonTotal += price;
+            } else {
+                addonTotal -= price;
+            }
+            calculate();
+        }
 
+        function toggleDiscount(row) {
+            row.classList.toggle('selected');
+            isDiscounted = row.classList.contains('selected');
+            calculate();
+        }
+
+        function calculate() {
+            let total = currentBase + addonTotal;
+            if(isDiscounted) total = total * 0.95;
+            document.getElementById('total-display').innerText = '$' + total.toFixed(2);
+        }
+    </script>
 </body>
 </html>
-
