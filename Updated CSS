@@ -1,0 +1,19 @@
+/* REPLACE the old .profile-badge css with this */
+.profile-badge {
+    width: 200px; /* Increased from 120px */
+    height: 200px; /* Increased from 120px */
+    border-radius: 50%; /* Keeps it circular, or use 20px for a "Rounded Square" album look */
+    border: 3px solid var(--accent-copper);
+    padding: 5px; /* Creates a gap between image and border */
+    object-fit: cover; /* Ensures the face/album art fills the circle without stretching */
+    box-shadow: 0 0 35px rgba(194, 120, 86, 0.4); /* Larger glow */
+    margin-bottom: 20px;
+}
+
+/* OPTIONAL: If you want the full rectangular album art visible */
+/* .profile-badge {
+    width: 220px;
+    height: auto;
+    border-radius: 12px;
+    aspect-ratio: 1/1; 
+} */
