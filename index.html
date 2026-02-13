@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thomas Rhett | Home Team Space | Official Concierge</title>
+    <title>Thomas Rhett | Home Team Space</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;800&family=Playfair+Display:ital,wght@0,700;1,700&display=swap" rel="stylesheet">
     
     <style>
@@ -11,186 +11,167 @@
             --bg: #05070a;
             --denim: #111827;
             --copper: #c27856;
-            --gold: #d4af37;
             --cream: #f8f5f2;
-            --discount-bg: rgba(16, 185, 129, 0.1);
             --discount-text: #10b981;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg);
             color: var(--cream);
-            line-height: 1.6;
             background-image: radial-gradient(circle at top right, #1a2333 0%, transparent 50%);
+            margin: 0; padding: 20px;
         }
 
-        .container { max-width: 700px; margin: 0 auto; padding: 40px 20px; text-align: center; }
+        .container { max-width: 650px; margin: 0 auto; text-align: center; }
 
-        .profile-container { position: relative; width: 220px; height: 220px; margin: 0 auto 30px; }
+        /* --- THE IMAGE FIX --- */
+        .profile-container {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
         .profile-badge {
-            width: 100%; height: 100%; border-radius: 50%; border: 3px solid var(--copper);
-            padding: 5px; object-fit: cover; box-shadow: 0 0 40px rgba(194, 120, 86, 0.3);
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--copper);
+            object-fit: cover; /* Keeps image from stretching */
+            background-color: #1a2333; /* Fallback color if image fails */
+            display: block;
+            box-shadow: 0 0 30px rgba(194, 120, 86, 0.4);
         }
-
-        h1 { font-family: 'Playfair Display', serif; font-size: 2.5rem; letter-spacing: -1px; margin-bottom: 10px; }
-        .sub-head { text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; color: var(--copper); font-weight: 800; margin-bottom: 40px; }
 
         .order-panel {
-            background: var(--denim); border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px; padding: 30px; text-align: left; box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            background: var(--denim);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 35px;
+            text-align: left;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.6);
         }
 
-        .section-label { font-size: 0.75rem; font-weight: 800; color: var(--copper); text-transform: uppercase; margin-bottom: 15px; display: block; }
+        .section-label { font-size: 0.7rem; font-weight: 800; color: var(--copper); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 15px; display: block; }
 
-        /* TIER CARDS */
-        .tier-selector { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 30px; }
         .tier-card {
-            background: rgba(255,255,255,0.03); border: 1px solid #334155;
-            padding: 20px; border-radius: 12px; cursor: pointer; transition: 0.3s;
+            background: rgba(255,255,255,0.03);
+            border: 1px solid #334155;
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.2s;
         }
-        .tier-card.active { border-color: var(--copper); background: rgba(194, 120, 86, 0.1); }
+        .tier-card.active { border-color: var(--copper); background: rgba(194, 120, 86, 0.15); }
 
-        /* UPSELLS */
         .upsell-item {
             display: flex; align-items: center; justify-content: space-between;
-            padding: 15px; background: rgba(255,255,255,0.03); border-radius: 10px;
-            margin-bottom: 10px; border: 1px solid transparent; cursor: pointer;
+            padding: 12px; border-radius: 10px; margin-bottom: 8px;
+            background: rgba(255,255,255,0.02); cursor: pointer;
         }
-        .upsell-item.checked { border-color: var(--copper); background: rgba(255,255,255,0.05); }
+        .upsell-item.selected { border: 1px solid var(--copper); }
 
-        /* GIFT CARD OPTION */
-        .gift-card-promo {
-            background: var(--discount-bg); border: 1px dashed var(--discount-text);
-            padding: 15px; border-radius: 10px; margin-bottom: 25px; display: flex;
-            align-items: center; justify-content: space-between; cursor: pointer;
+        .gift-card-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px dashed var(--discount-text);
+            padding: 15px; border-radius: 12px; margin: 20px 0;
+            display: flex; align-items: center; gap: 10px; cursor: pointer;
         }
-        .gift-card-promo input { width: auto; margin-right: 10px; }
 
-        /* TOTALS */
-        .total-box {
-            background: #000; padding: 20px; border-radius: 10px;
+        .total-display {
+            background: #000; padding: 20px; border-radius: 15px;
             display: flex; justify-content: space-between; align-items: center;
-            margin-bottom: 25px; border: 1px solid var(--copper);
+            border: 1px solid var(--copper); margin-bottom: 20px;
         }
-        .discount-label { font-size: 0.8rem; color: var(--discount-text); font-weight: 800; display: none; }
 
-        input[type="text"], input[type="email"] {
+        input {
             width: 100%; padding: 15px; background: #000; border: 1px solid #334155;
-            border-radius: 8px; color: white; margin-bottom: 15px;
+            border-radius: 10px; color: white; margin-bottom: 10px;
         }
 
-        .btn-invoice {
-            width: 100%; background: var(--copper); color: white; padding: 20px;
-            border: none; border-radius: 8px; font-weight: 800; cursor: pointer;
+        .btn-submit {
+            width: 100%; background: var(--copper); color: white; padding: 18px;
+            border: none; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 1rem;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="profile-container">
-            <img src="https://i.scdn.co/image/ab6761610000e5eb2d02720a4698544d6731df46" class="profile-badge">
-        </div>
-
-        <h1>HOME TEAM SPACE</h1>
-        <p class="sub-head">Premium Fan Concierge • 2026 Tour Access</p>
-
-        <div class="order-panel">
-            <span class="section-label">1. Choose Your Base Membership</span>
-            <div class="tier-selector">
-                <div class="tier-card active" onclick="updateBase(35, this)">
-                    <h4>Gold Card</h4>
-                    <p>Priority Access • $35</p>
-                </div>
-                <div class="tier-card" onclick="updateBase(15, this)">
-                    <h4>Copper Card</h4>
-                    <p>Standard • $15</p>
-                </div>
-            </div>
-
-            <span class="section-label">2. Exclusive Fan Add-Ons</span>
-            <div id="upsells">
-                <div class="upsell-item" onclick="toggleUpsell(150, this)">
-                    <div><strong>Luke Combs Tour Sync</strong><p style="font-size:0.7rem;">Shared 2026 Stadium Dates Access.</p></div>
-                    <span style="color:var(--copper); font-weight:800;">+$150</span>
-                </div>
-                <div class="upsell-item" onclick="toggleUpsell(85, this)">
-                    <div><strong>Signed 'About A Woman' Vinyl</strong><p style="font-size:0.7rem;">Authenticated Copy.</p></div>
-                    <span style="color:var(--copper); font-weight:800;">+$85</span>
-                </div>
-            </div>
-
-            <span class="section-label">3. Payment Preference</span>
-            <div class="gift-card-promo" onclick="toggleDiscount(this)">
-                <div style="display:flex; align-items:center;">
-                    <input type="checkbox" id="gc-check">
-                    <label style="font-size:0.85rem; cursor:pointer;">
-                        <strong>Gift Card Method (5% OFF)</strong><br>
-                        <span style="font-size:0.75rem;">Steam, Amazon, Razer Gold accepted.</span>
-                    </label>
-                </div>
-                <span style="color:var(--discount-text); font-weight:800;">SAVE</span>
-            </div>
-
-            <div class="total-box">
-                <div>
-                    <span style="display:block; font-size:0.7rem;">INVOICE TOTAL:</span>
-                    <span class="discount-label" id="disc-tag">GIFT CARD DISCOUNT APPLIED</span>
-                </div>
-                <span style="font-size:1.8rem; font-weight:800;" id="total-display">$35.00</span>
-            </div>
-
-            <form action="#" id="main-form">
-                <input type="text" placeholder="Full Legal Name" required>
-                <input type="email" placeholder="Email Address for Secure Invoice" required>
-                <button type="button" onclick="submitRequest()" class="btn-invoice">Request Secure Invoice</button>
-            </form>
-        </div>
+<div class="container">
+    <div class="profile-container">
+        <img src="./hero.jpg" alt="Home Team Elite" class="profile-badge">
     </div>
 
-    <script>
-        let base = 35;
-        let upsells = 0;
-        let isDiscounted = false;
+    <h1 style="font-family:'Playfair Display'; font-size: 2.2rem;">HOME TEAM SPACE</h1>
+    <p style="color:var(--copper); letter-spacing:2px; font-size:0.8rem; margin-bottom:30px;">OFFICIAL 2026 FAN CONCIERGE</p>
 
-        function updateBase(p, el) {
-            document.querySelectorAll('.tier-card').forEach(c => c.classList.remove('active'));
-            el.classList.add('active');
-            base = p;
-            calculate();
-        }
+    <div class="order-panel">
+        <span class="section-label">Select Membership Tier</span>
+        <div class="tier-card active" onclick="setBase(35, this)">
+            <strong>Gold Fan Card</strong> — $35.00
+            <p style="font-size:0.75rem; color:#94a3b8; margin:0;">Includes 2026 Stadium Tour Presale ID</p>
+        </div>
 
-        function toggleUpsell(p, el) {
-            el.classList.toggle('checked');
-            if(el.classList.contains('checked')) upsells += p;
-            else upsells -= p;
-            calculate();
-        }
+        <span class="section-label" style="margin-top:20px;">Premium Add-ons</span>
+        <div class="upsell-item" onclick="toggleAddon(150, this)">
+            <span>Luke Combs Tour Sync</span>
+            <span style="color:var(--copper); font-weight:800;">+$150</span>
+        </div>
+        <div class="upsell-item" onclick="toggleAddon(85, this)">
+            <span>Signed 'About A Woman' Vinyl</span>
+            <span style="color:var(--copper); font-weight:800;">+$85</span>
+        </div>
 
-        function toggleDiscount(el) {
-            const cb = document.getElementById('gc-check');
-            cb.checked = !cb.checked;
-            isDiscounted = cb.checked;
-            document.getElementById('disc-tag').style.display = isDiscounted ? 'block' : 'none';
-            calculate();
-        }
+        <div class="gift-card-box" onclick="toggleGC()">
+            <input type="checkbox" id="gccheck">
+            <label style="font-size:0.85rem; color:var(--discount-text); cursor:pointer;">
+                <strong>Gift Card Discount (5% OFF)</strong><br>
+                Steam / Amazon / Razer Gold
+            </label>
+        </div>
 
-        function calculate() {
-            let total = base + upsells;
-            if(isDiscounted) total = total * 0.95;
-            document.getElementById('total-display').innerText = `$${total.toFixed(2)}`;
-        }
+        <div class="total-display">
+            <span style="font-size:0.8rem;">TOTAL DUE:</span>
+            <span id="final-price" style="font-size:1.8rem; font-weight:800;">$35.00</span>
+        </div>
 
-        function submitRequest() {
-            const total = document.getElementById('total-display').innerText;
-            const msg = isDiscounted ? 
-                `Your request for ${total} via Gift Card has been sent. Check email for verification instructions.` :
-                `Invoice request for ${total} submitted. Check your email for secure payment link.`;
-            alert(msg);
-        }
-    </script>
+        <input type="text" id="fname" placeholder="Full Legal Name">
+        <input type="email" id="femail" placeholder="Email for Secure Invoice">
+        <button class="btn-submit" onclick="submitOrder()">Request Secure Invoice</button>
+    </div>
+</div>
+
+<script>
+    let base = 35;
+    let addons = 0;
+    let discount = false;
+
+    function setBase(p, el) { base = p; calc(); }
+    
+    function toggleAddon(p, el) {
+        el.classList.toggle('selected');
+        if(el.classList.contains('selected')) addons += p;
+        else addons -= p;
+        calc();
+    }
+
+    function toggleGC() {
+        discount = !discount;
+        document.getElementById('gccheck').checked = discount;
+        calc();
+    }
+
+    function calc() {
+        let total = base + addons;
+        if(discount) total *= 0.95;
+        document.getElementById('final-price').innerText = `$${total.toFixed(2)}`;
+    }
+
+    function submitOrder() {
+        alert("Invoice request sent! Check your email for the secure payment portal.");
+    }
+</script>
+
 </body>
 </html>
-
