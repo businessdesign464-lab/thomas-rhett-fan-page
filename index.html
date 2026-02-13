@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Thomas Rhett | HOME TEAM EXCLUSIVE</title>
+    <title>Thomas Rhett | HOME TEAM EXCLUSIVE ACCESS</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;500;700;900&display=swap" rel="stylesheet">
     
     <style>
         /* --- 1. CORE VARIABLES & RESET --- */
         :root {
-            --brand-primary: #c27856; /* TR Copper */
+            --brand-primary: #c27856; /* TR Copper Default */
             --brand-secondary: #ffffff;
-            --brand-bg: #000000;
-            --surface-glass: rgba(20, 20, 20, 0.85);
-            --surface-border: rgba(255, 255, 255, 0.15);
-            --accent-texas: #bf3415;
-            --accent-nash: #3b82f6;
-            --accent-uk: #7c3aed;
+            --brand-bg: #050505;
+            --surface-glass: rgba(25, 25, 25, 0.6);
+            --surface-glass-solid: rgba(20, 20, 20, 0.95);
+            --surface-border: rgba(255, 255, 255, 0.12);
+            
+            /* Regional Palettes */
+            --accent-texas: #bf3415;  /* Burnt Orange */
+            --accent-nash: #3b82f6;   /* Electric Blue */
+            --accent-nyc: #94a3b8;    /* Concrete / Steel */
+            --accent-la: #d946ef;     /* Sunset Purple */
+            --accent-chi: #ef4444;    /* Bulls Red */
+            --accent-uk: #7c3aed;     /* Royal Purple */
+            --accent-aus: #eab308;    /* Gold */
+
             --success: #00ff88;
             --text-main: #ffffff;
             --text-dim: #a1a1aa;
@@ -33,35 +41,35 @@
             color: var(--text-main);
             font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            padding-bottom: 120px; /* Space for sticky footer */
+            padding-bottom: 140px; /* Space for sticky footer */
+            transition: background-color 0.5s ease;
         }
 
         /* --- 2. IMMERSIVE HERO SECTION --- */
         .hero-wrap {
             position: relative;
-            height: 65vh; /* Massive header */
+            height: 60vh;
             width: 100%;
             overflow: hidden;
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            border-bottom: 1px solid var(--surface-border);
         }
 
         .hero-bg {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            /* REFERENCES YOUR IMAGE HERE */
             background-image: url('./hero.jpg'); 
             background-size: cover;
             background-position: center top;
             z-index: 0;
-            transition: transform 10s ease;
+            transition: transform 15s ease;
         }
-        /* Slow zoom effect on load */
         .hero-wrap:hover .hero-bg { transform: scale(1.05); }
 
         .hero-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.1), #000 95%);
+            background: linear-gradient(to bottom, rgba(5,5,5,0.2), var(--brand-bg) 98%);
             z-index: 1;
         }
 
@@ -69,170 +77,295 @@
             position: relative; z-index: 2;
             text-align: center;
             width: 100%;
-            padding: 0 20px 40px;
+            padding: 0 20px 30px;
             animation: slideUp 0.8s var(--ease);
         }
 
         h1 {
             font-family: 'Anton', sans-serif;
-            font-size: 3.8rem;
-            line-height: 0.9;
+            font-size: 3.5rem;
+            line-height: 0.85;
             text-transform: uppercase;
             margin: 0;
             letter-spacing: -1px;
-            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            text-shadow: 0 10px 40px rgba(0,0,0,0.9);
         }
         
         .verified-badge {
             display: inline-flex; align-items: center; gap: 6px;
-            background: rgba(255,255,255,0.15);
+            background: rgba(255,255,255,0.1);
             backdrop-filter: blur(10px);
             padding: 6px 14px;
             border-radius: 50px;
             font-size: 0.75rem; font-weight: 700;
-            margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.3);
+            margin-bottom: 15px; border: 1px solid rgba(255,255,255,0.2);
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
-        /* --- 3. LIVE TICKER (VIRAL ELEMENT) --- */
+        /* --- 3. LIVE TICKER --- */
         .marquee-container {
             background: var(--brand-primary);
             color: #000;
-            padding: 8px 0;
+            padding: 10px 0;
             white-space: nowrap;
             overflow: hidden;
             font-weight: 800;
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 1.5px;
             position: relative; z-index: 5;
+            transition: background 0.5s ease;
         }
         .marquee-content {
             display: inline-block;
-            animation: marquee 20s linear infinite;
+            animation: marquee 30s linear infinite;
         }
 
-        /* --- 4. REGION SELECTOR (THE "UPGRADE") --- */
-        .hub-controls {
+        /* --- 4. SCROLLABLE REGION SELECTOR --- */
+        .hub-controls-wrap {
             position: sticky; top: 0; z-index: 100;
-            background: rgba(0,0,0,0.9);
-            backdrop-filter: blur(15px);
-            padding: 15px 20px;
+            background: rgba(5,5,5,0.85);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--surface-border);
-            display: flex; gap: 10px; overflow-x: auto;
-            scrollbar-width: none;
+        }
+
+        .hub-controls {
+            display: flex; gap: 12px; 
+            overflow-x: auto;
+            padding: 15px 20px;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE */
         }
         .hub-controls::-webkit-scrollbar { display: none; }
 
         .region-btn {
-            background: transparent;
+            background: rgba(255,255,255,0.05);
             color: var(--text-dim);
             border: 1px solid var(--surface-border);
-            padding: 10px 20px;
-            border-radius: 8px;
+            padding: 12px 24px;
+            border-radius: 100px;
             font-weight: 700; font-size: 0.8rem;
             white-space: nowrap; cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            display: flex; align-items: center; gap: 8px;
         }
+        
+        .region-btn:hover { background: rgba(255,255,255,0.1); }
+        
         .region-btn.active {
-            background: var(--brand-secondary);
+            background: var(--brand-primary);
             color: #000;
-            border-color: var(--brand-secondary);
-            box-shadow: 0 0 20px rgba(255,255,255,0.3);
+            border-color: var(--brand-primary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            transform: scale(1.05);
         }
 
         /* --- 5. MAIN GRID --- */
         .container {
-            max-width: 800px; margin: 0 auto; padding: 30px 20px;
+            max-width: 900px; margin: 0 auto; padding: 20px 20px;
         }
 
-        .section-title {
-            font-family: 'Anton'; font-size: 1.5rem; margin: 40px 0 20px;
-            display: flex; align-items: center; justify-content: space-between;
+        .section-header {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin: 50px 0 25px;
+            border-bottom: 1px solid var(--surface-border);
+            padding-bottom: 15px;
         }
-        .pulse-dot {
-            width: 8px; height: 8px; background: var(--success);
-            border-radius: 50%; box-shadow: 0 0 10px var(--success);
-            animation: pulse 2s infinite;
+        
+        .section-title {
+            font-family: 'Anton'; font-size: 1.8rem; 
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        
+        .section-subtitle {
+            font-size: 0.8rem; color: var(--text-dim); font-weight: 500;
+            text-transform: uppercase; letter-spacing: 1px;
         }
 
         /* PRODUCT CARDS */
         .product-grid {
-            display: grid; grid-template-columns: 1fr; gap: 15px;
+            display: grid; grid-template-columns: 1fr; gap: 16px;
+        }
+        
+        @media(min-width: 700px) {
+            .product-grid { grid-template-columns: 1fr 1fr; }
         }
         
         .product-card {
             background: var(--surface-glass);
             border: 1px solid var(--surface-border);
             border-radius: 16px;
-            padding: 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            transition: 0.2s; position: relative; overflow: hidden;
+            padding: 24px;
+            display: flex; flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease; 
+            position: relative; overflow: hidden;
+            min-height: 160px;
         }
         
-        .product-card.highlight {
+        .product-card:active { transform: scale(0.98); }
+
+        .product-card.membership-card {
+            background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(0,0,0,0.2));
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .product-card.membership-card.active-card {
             border-color: var(--brand-primary);
-            background: linear-gradient(145deg, rgba(194,120,86,0.1), rgba(0,0,0,0));
+            background: linear-gradient(145deg, rgba(var(--brand-primary),0.15), rgba(0,0,0,0));
+            box-shadow: 0 0 30px rgba(0,0,0,0.5) inset;
         }
 
-        .p-info h3 { font-size: 1.1rem; margin-bottom: 5px; font-weight: 800; }
-        .p-info p { font-size: 0.8rem; color: var(--text-dim); }
+        .tag {
+            font-size: 0.65rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase;
+            padding: 4px 8px; border-radius: 4px; background: rgba(255,255,255,0.1);
+            align-self: flex-start; margin-bottom: 10px;
+        }
+
+        .p-info h3 { font-size: 1.25rem; margin: 0 0 6px; font-weight: 800; font-family: 'Anton'; letter-spacing: 0.5px; }
+        .p-info p { font-size: 0.85rem; color: var(--text-dim); margin: 0; line-height: 1.4; }
         
+        .card-bottom {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            margin-top: 20px;
+        }
+
         .price-tag {
-            font-family: 'Anton'; font-size: 1.4rem; color: var(--brand-primary);
+            font-family: 'Anton'; font-size: 1.6rem; color: var(--brand-primary);
+            transition: color 0.3s;
         }
 
         .add-btn {
-            width: 40px; height: 40px; border-radius: 50%;
-            background: #fff; border: none; font-size: 1.2rem;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(255,255,255,0.1); 
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; font-size: 1.4rem;
             display: flex; align-items: center; justify-content: center;
-            cursor: pointer; margin-left: 15px;
-            transition: 0.2s;
-        }
-        .add-btn.added { background: var(--success); color: #000; transform: rotate(45deg); }
-
-        /* --- 6. FORM & VIP --- */
-        .vip-access {
-            background: linear-gradient(to right, #1a1a1a, #000);
-            border-radius: 20px; padding: 30px; margin-top: 40px;
-            border: 1px solid var(--surface-border);
+            cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         
-        input {
-            width: 100%; background: #000; border: 1px solid #333;
-            padding: 18px; border-radius: 12px; color: #fff;
-            margin-bottom: 12px; font-size: 1rem;
+        .add-btn:hover { background: #fff; color: #000; }
+        
+        .add-btn.added { 
+            background: var(--success); 
+            color: #000; 
+            border-color: var(--success);
+            transform: rotate(45deg); 
         }
-        input:focus { border-color: var(--brand-primary); outline: none; }
+
+        /* --- 6. VIP FORM --- */
+        .vip-access {
+            background: linear-gradient(180deg, #111, #050505);
+            border-radius: 24px; padding: 30px; margin-top: 60px;
+            border: 1px solid var(--surface-border);
+            position: relative; overflow: hidden;
+        }
+        
+        .vip-access::before {
+            content:''; position: absolute; top:0; left:0; width:100%; height:4px;
+            background: var(--brand-primary);
+        }
+        
+        .form-group { margin-bottom: 15px; }
+        
+        input {
+            width: 100%; background: #080808; border: 1px solid #333;
+            padding: 20px; border-radius: 12px; color: #fff;
+            font-size: 1rem; transition: 0.3s;
+            font-family: 'Inter', sans-serif;
+        }
+        input:focus { 
+            border-color: var(--brand-primary); 
+            background: #151515; outline: none; 
+            box-shadow: 0 0 0 4px rgba(255,255,255,0.05);
+        }
+        
+        .secure-badge {
+            display: flex; align-items: center; justify-content: center; gap: 8px;
+            margin-top: 20px; opacity: 0.5; font-size: 0.8rem;
+        }
 
         /* --- 7. STICKY CHECKOUT BAR --- */
         .sticky-bar {
             position: fixed; bottom: 0; left: 0; width: 100%;
-            background: rgba(10,10,10,0.95);
-            backdrop-filter: blur(20px);
-            padding: 20px; border-top: 1px solid #333;
+            background: rgba(15,15,15,0.9);
+            backdrop-filter: blur(25px);
+            padding: 15px 20px 25px; /* extra bottom padding for mobile home bars */
+            border-top: 1px solid rgba(255,255,255,0.1);
             z-index: 200;
             display: flex; justify-content: space-between; align-items: center;
             animation: slideUp 0.5s;
+            box-shadow: 0 -10px 40px rgba(0,0,0,0.5);
         }
+        
+        .total-label { font-size: 0.75rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 2px; }
         
         .checkout-btn {
             background: var(--brand-primary);
-            color: #000; padding: 15px 30px; border-radius: 50px;
+            color: #000; padding: 16px 32px; border-radius: 100px;
             font-weight: 900; border: none; text-transform: uppercase;
-            font-size: 0.9rem; letter-spacing: 1px;
-            box-shadow: 0 5px 20px rgba(194,120,86,0.4);
-            cursor: pointer;
+            font-size: 0.95rem; letter-spacing: 1px;
+            box-shadow: 0 10px 30px -10px var(--brand-primary);
+            cursor: pointer; position: relative; overflow: hidden;
+            transition: transform 0.2s;
+        }
+        .checkout-btn:active { transform: scale(0.95); }
+
+        /* --- 8. SUCCESS MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(15px);
+            z-index: 999;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.4s;
+        }
+        .modal-overlay.show { opacity: 1; pointer-events: all; }
+
+        .success-card {
+            background: #111;
+            border: 1px solid #333;
+            width: 90%; max-width: 400px;
+            border-radius: 24px;
+            padding: 40px 30px;
+            text-align: center;
+            transform: translateY(50px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+        }
+        .modal-overlay.show .success-card { transform: translateY(0); }
+
+        .check-circle {
+            width: 80px; height: 80px; background: var(--success);
+            border-radius: 50%; margin: 0 auto 25px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem; color: #000;
+            box-shadow: 0 0 30px rgba(0,255,136,0.3);
         }
 
         /* --- ANIMATIONS --- */
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.4; } 100% { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(100px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(60px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        
+        /* Confetti */
+        .confetti {
+            position: absolute; width: 10px; height: 10px; background-color: #f00;
+            animation: confetti-fall 3s linear forwards;
+        }
+        @keyframes confetti-fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+        }
 
         /* --- DYNAMIC THEME CLASSES --- */
         body.mode-texas { --brand-primary: var(--accent-texas); }
         body.mode-nash { --brand-primary: var(--accent-nash); }
+        body.mode-nyc { --brand-primary: var(--accent-nyc); }
+        body.mode-la { --brand-primary: var(--accent-la); }
+        body.mode-chi { --brand-primary: var(--accent-chi); }
         body.mode-uk { --brand-primary: var(--accent-uk); }
+        body.mode-aus { --brand-primary: var(--accent-aus); }
 
         .hidden { display: none; }
 
@@ -243,7 +376,7 @@
     <div class="marquee-container">
         <div class="marquee-content">
             TOUR DATES DROPPING SOON • LIMITED VIP PACKAGES AVAILABLE • SARAH M. JUST PURCHASED "TEXAS GOLD VINYL" • MIKE T. JUST JOINED HOME TEAM ELITE • 
-            TOUR DATES DROPPING SOON • LIMITED VIP PACKAGES AVAILABLE • SARAH M. JUST PURCHASED "TEXAS GOLD VINYL" • MIKE T. JUST JOINED HOME TEAM ELITE • 
+            NEW YORK SHOW ADDED • LA POP-UP SHOP OPEN NOW • LONDON TICKETS LOW STOCK • SARAH M. JUST PURCHASED "TEXAS GOLD VINYL" • 
         </div>
     </div>
 
@@ -254,85 +387,211 @@
             <div class="verified-badge">
                 <span style="color:var(--success)">●</span> OFFICIAL FAN HUB
             </div>
-            <h1>HOME TEAM<br><span id="location-title" style="color:var(--brand-primary)">GLOBAL</span></h1>
+            <h1>HOME TEAM<br><span id="location-title" style="color:var(--brand-primary); transition: color 0.5s;">GLOBAL</span></h1>
         </div>
     </div>
 
-    <div class="hub-controls">
-        <button class="region-btn active" onclick="setRegion('global', this)">🌐 GLOBAL</button>
-        <button class="region-btn" onclick="setRegion('texas', this)">🤠 TEXAS HUB</button>
-        <button class="region-btn" onclick="setRegion('nash', this)">🎸 NASHVILLE</button>
-        <button class="region-btn" onclick="setRegion('uk', this)">🇬🇧 LONDON</button>
+    <div class="hub-controls-wrap">
+        <div class="hub-controls">
+            <button class="region-btn active" onclick="setRegion('global', this)">🌐 GLOBAL</button>
+            <button class="region-btn" onclick="setRegion('texas', this)">🤠 TEXAS</button>
+            <button class="region-btn" onclick="setRegion('nash', this)">🎸 NASHVILLE</button>
+            <button class="region-btn" onclick="setRegion('nyc', this)">🗽 NEW YORK</button>
+            <button class="region-btn" onclick="setRegion('la', this)">🌴 LOS ANGELES</button>
+            <button class="region-btn" onclick="setRegion('chi', this)">🐂 CHICAGO</button>
+            <button class="region-btn" onclick="setRegion('uk', this)">🇬🇧 LONDON</button>
+            <button class="region-btn" onclick="setRegion('aus', this)">🇦🇺 AUSTRALIA</button>
+        </div>
     </div>
 
     <div class="container">
 
-        <div class="section-title">
-            <span>SELECT ACCESS LEVEL</span>
-            <div class="pulse-dot"></div>
+        <div class="section-header">
+            <div>
+                <div class="section-title">SELECT ACCESS LEVEL</div>
+                <div class="section-subtitle">Digital Membership Cards</div>
+            </div>
         </div>
 
         <div class="product-grid" id="membership-grid">
             </div>
 
-        <div class="section-title">
-            <span>EXCLUSIVE ADD-ONS</span>
-            <span style="font-size:0.8rem; opacity:0.6; font-weight:400;">STOCK LOW</span>
+        <div class="section-header">
+            <div>
+                <div class="section-title">EXCLUSIVE ADD-ONS</div>
+                <div class="section-subtitle">Merch & Experiences</div>
+            </div>
+            <div style="font-size:0.7rem; color:var(--brand-primary); border:1px solid var(--brand-primary); padding:4px 8px; border-radius:4px;">STOCK LOW</div>
         </div>
 
         <div class="product-grid" id="addon-grid">
             </div>
 
         <div class="vip-access">
-            <h3 style="font-family:'Anton'; margin-bottom:20px; color:var(--brand-primary)">SECURE YOUR SPOT</h3>
-            <form>
-                <input type="text" placeholder="Full Name (For Guest List)" required>
-                <input type="email" placeholder="Email Address" required>
-                <div style="font-size:0.75rem; color:#666; margin-top:10px;">
-                    *By clicking continue, you agree to Home Team Terms. No crypto/encryption delays. Instant invoice.
+            <h3 style="font-family:'Anton'; margin: 0 0 25px; color:var(--brand-primary); font-size:1.5rem;">SECURE YOUR SPOT</h3>
+            <form onsubmit="event.preventDefault();">
+                <div class="form-group">
+                    <input type="text" id="input-name" placeholder="Full Name (For Guest List)" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" id="input-email" placeholder="Email Address for Invoice" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Mobile Number (Optional for SMS Alerts)">
+                </div>
+                <div style="font-size:0.75rem; color:#666; margin-top:15px; line-height:1.4;">
+                    *By clicking Get Access, you agree to Home Team Terms. This is a secure 256-bit encrypted transaction. No crypto delays. 
+                    <span style="color:var(--text-main)">Invoice is generated instantly.</span>
                 </div>
             </form>
         </div>
         
-        <br><br>
+        <br><br><br>
+        
         <center>
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/ca/Sony_Music_Entertainment_logo.svg/2560px-Sony_Music_Entertainment_logo.svg.png" style="width: 80px; opacity: 0.3; filter: invert(1);">
-            <p style="font-size: 0.7rem; color: #555; margin-top: 10px;">© 2026 Home Team. Official Fan Club.</p>
+            <p style="font-size: 0.7rem; color: #444; margin-top: 15px;">
+                © 2026 Home Team. Official Fan Club.<br>
+                Nashville, TN • London, UK • New York, NY
+            </p>
         </center>
     </div>
 
     <div class="sticky-bar">
         <div>
-            <div style="font-size:0.7rem; color:#888;">TOTAL ESTIMATE</div>
-            <div style="font-family:'Anton'; font-size:1.8rem;" id="total-display">$0.00</div>
+            <div class="total-label">TOTAL ESTIMATE</div>
+            <div style="font-family:'Anton'; font-size:2rem;" id="total-display">$0.00</div>
         </div>
-        <button class="checkout-btn" onclick="alert('Redirecting to Secure Payment Gateway...')">GET ACCESS ➔</button>
+        <button class="checkout-btn" onclick="processCheckout()">
+            GET ACCESS <span style="margin-left:5px;">➔</span>
+        </button>
+    </div>
+
+    <div class="modal-overlay" id="success-modal">
+        <div class="success-card">
+            <div class="check-circle">✓</div>
+            <h2 style="font-family:'Anton'; font-size:2rem; margin:0 0 10px;">YOU'RE IN!</h2>
+            <p style="color:#aaa; font-size:0.9rem; margin-bottom:20px;">
+                Welcome to the Home Team.
+            </p>
+            <div style="background:#222; padding:15px; border-radius:12px; margin-bottom:25px;">
+                <p style="color:#fff; font-size:0.85rem; margin:0 0 5px; font-weight:700;">INVOICE SENT</p>
+                <p style="color:#666; font-size:0.75rem; margin:0;">
+                    Check <span id="confirm-email" style="color:var(--brand-primary)">your email</span> immediately.
+                </p>
+            </div>
+            <button onclick="closeModal()" style="width:100%; padding:15px; background:#fff; border:none; border-radius:50px; font-weight:800; cursor:pointer;">GOT IT</button>
+        </div>
     </div>
 
     <script>
-        // --- CONFIGURATION ---
+        // --- DATA CONFIGURATION ---
+        // 5+ Addons per region + 2 Membership Tiers
         const products = {
-            global: [
-                { id: 'm1', name: 'GOLD TIER', desc: 'Presale Codes + Digital Album', price: 35, type: 'membership' },
-                { id: 'm2', name: 'SILVER TIER', desc: 'Community Access', price: 20, type: 'membership' },
-                { id: 'a1', name: 'Signed Vinyl', desc: 'Pre-order "About A Woman"', price: 45, type: 'addon' },
-                { id: 'a2', name: 'Tour Laminate', desc: 'Collectible Souvenir', price: 15, type: 'addon' }
-            ],
-            texas: [
-                { id: 'mt1', name: 'LONE STAR VIP', desc: 'Dallas/Austin Early Entry + Meet & Greet Raffle', price: 65, type: 'membership' },
-                { id: 'mt2', name: 'CATTLEMAN PASS', desc: 'Standard TX Tour Access', price: 40, type: 'membership' },
-                { id: 'at1', name: 'Cowboy Hat Bundle', desc: 'Exclusive Orange Branding', price: 80, type: 'addon' },
-                { id: 'at2', name: 'AT&T Stadium Poster', desc: 'Numbered 1/500', price: 30, type: 'addon' }
-            ],
-            nash: [
-                { id: 'mn1', name: 'MUSIC CITY ELITE', desc: 'Bridgestone Arena Lounge Access', price: 75, type: 'membership' },
-                { id: 'an1', name: 'Opry Afterparty', desc: 'Waitlist Spot', price: 25, type: 'addon' },
-                { id: 'an2', name: 'Hatch Show Print', desc: 'Nashville Exclusive', price: 45, type: 'addon' }
-            ],
-            uk: [
-                { id: 'mu1', name: 'EURO PASS', desc: 'London/Dublin Priority Tickets', price: 40, type: 'membership' },
-                { id: 'au1', name: 'Intl Shipping Pass', desc: 'Free Merch Shipping for 1 Year', price: 50, type: 'addon' }
-            ]
+            global: {
+                memberships: [
+                    { id: 'm_g1', name: 'GOLD TIER', desc: 'Presale Codes + Digital Album', price: 35 },
+                    { id: 'm_g2', name: 'SILVER TIER', desc: 'Community Access Only', price: 20 }
+                ],
+                addons: [
+                    { id: 'a_g1', name: 'Signed Vinyl', desc: 'Pre-order "About A Woman"', price: 45 },
+                    { id: 'a_g2', name: 'Tour Laminate', desc: 'Collectible Souvenir', price: 15 },
+                    { id: 'a_g3', name: 'Home Team Hoodie', desc: 'Black/Copper Tour Edition', price: 65 },
+                    { id: 'a_g4', name: 'Digital EP', desc: '4 Acoustic Tracks', price: 10 },
+                    { id: 'a_g5', name: 'Virtual M&G Raffle', desc: '1 Entry per purchase', price: 5 }
+                ]
+            },
+            texas: {
+                memberships: [
+                    { id: 'm_tx1', name: 'LONE STAR VIP', desc: 'Dallas/Austin Early Entry', price: 65 },
+                    { id: 'm_tx2', name: 'CATTLEMAN PASS', desc: 'Standard TX Tour Access', price: 40 }
+                ],
+                addons: [
+                    { id: 'a_tx1', name: 'Cowboy Hat Bundle', desc: 'Exclusive Orange Branding', price: 80 },
+                    { id: 'a_tx2', name: 'AT&T Stadium Poster', desc: 'Numbered 1/500', price: 30 },
+                    { id: 'a_tx3', name: 'BBQ Pit Pass', desc: 'Pre-show Food Access', price: 55 },
+                    { id: 'a_tx4', name: 'Belt Buckle', desc: 'Home Team Engraved', price: 45 },
+                    { id: 'a_tx5', name: 'Texas Koozie Set', desc: 'Keep it cold', price: 12 }
+                ]
+            },
+            nash: {
+                memberships: [
+                    { id: 'm_n1', name: 'MUSIC CITY ELITE', desc: 'Bridgestone Arena Lounge', price: 75 },
+                    { id: 'm_n2', name: 'HONKY TONK PASS', desc: 'Standard Nash Access', price: 45 }
+                ],
+                addons: [
+                    { id: 'a_n1', name: 'Opry Afterparty', desc: 'Waitlist Spot', price: 25 },
+                    { id: 'a_n2', name: 'Hatch Show Print', desc: 'Nashville Exclusive', price: 45 },
+                    { id: 'a_n3', name: 'Whiskey Glass Set', desc: 'Etched Logo', price: 35 },
+                    { id: 'a_n4', name: 'Bluebird Cafe Tix', desc: 'Raffle Entry', price: 10 },
+                    { id: 'a_n5', name: 'Signed Lyric Sheet', desc: 'Handwritten Copy', price: 100 }
+                ]
+            },
+            nyc: {
+                memberships: [
+                    { id: 'm_ny1', name: 'EMPIRE STATE VIP', desc: 'MSG Backstage Access', price: 85 },
+                    { id: 'm_ny2', name: 'BIG APPLE PASS', desc: 'Standard NYC Access', price: 50 }
+                ],
+                addons: [
+                    { id: 'a_ny1', name: 'Rooftop Party', desc: 'Post-show Brooklyn', price: 60 },
+                    { id: 'a_ny2', name: 'Subway Tour Tee', desc: 'NYC Exclusive Merch', price: 35 },
+                    { id: 'a_ny3', name: 'Commemorative Ticket', desc: 'Acrylic Block', price: 25 },
+                    { id: 'a_ny4', name: 'Pizza Party Invite', desc: 'Pre-show gathering', price: 20 },
+                    { id: 'a_ny5', name: 'Yellow Cab Hat', desc: 'Limited Edition', price: 30 }
+                ]
+            },
+            la: {
+                memberships: [
+                    { id: 'm_la1', name: 'HOLLYWOOD GOLD', desc: 'Bowl Garden Box Access', price: 90 },
+                    { id: 'm_la2', name: 'SUNSET PASS', desc: 'Standard LA Access', price: 55 }
+                ],
+                addons: [
+                    { id: 'a_la1', name: 'Beach Towel', desc: 'Venice Style', price: 40 },
+                    { id: 'a_la2', name: 'Studio Tour', desc: 'See where we recorded', price: 120 },
+                    { id: 'a_la3', name: 'Sunglasses', desc: 'Aviator Style', price: 25 },
+                    { id: 'a_la4', name: 'VIP Parking', desc: 'The Forum / Bowl', price: 50 },
+                    { id: 'a_la5', name: 'Signed Setlist', desc: 'From LA Night 1', price: 75 }
+                ]
+            },
+            chi: {
+                memberships: [
+                    { id: 'm_ch1', name: 'WINDY CITY VIP', desc: 'Soldier Field Early Entry', price: 70 },
+                    { id: 'm_ch2', name: 'MIDWEST PASS', desc: 'Standard IL Access', price: 45 }
+                ],
+                addons: [
+                    { id: 'a_ch1', name: 'Winter Beanie', desc: 'Fleece Lined', price: 30 },
+                    { id: 'a_ch2', name: 'Scarf', desc: 'Home Team Colors', price: 35 },
+                    { id: 'a_ch3', name: 'Soundcheck Access', desc: 'Watch warm-up', price: 50 },
+                    { id: 'a_ch4', name: 'Tote Bag', desc: 'Canvas', price: 15 },
+                    { id: 'a_ch5', name: 'Flag', desc: 'Chicago Style 3x5', price: 25 }
+                ]
+            },
+            uk: {
+                memberships: [
+                    { id: 'm_uk1', name: 'EURO PASS', desc: 'London/Dublin Priority', price: 40 },
+                    { id: 'm_uk2', name: 'ISLAND PASS', desc: 'Standard UK Access', price: 25 }
+                ],
+                addons: [
+                    { id: 'a_uk1', name: 'Intl Shipping Pass', desc: 'Free Merch Ship 1yr', price: 50 },
+                    { id: 'a_uk2', name: 'Football Scarf', desc: 'Soccer Style', price: 30 },
+                    { id: 'a_uk3', name: 'Pub Takeover', desc: 'Camden Town Entry', price: 15 },
+                    { id: 'a_uk4', name: 'Tea Set', desc: 'Mug + Coaster', price: 20 },
+                    { id: 'a_uk5', name: 'O2 Lounge Upgrade', desc: 'Drink Vouchers', price: 40 }
+                ]
+            },
+            aus: {
+                memberships: [
+                    { id: 'm_au1', name: 'DOWN UNDER GOLD', desc: 'Sydney/Melb Priority', price: 50 },
+                    { id: 'm_au2', name: 'OUTBACK PASS', desc: 'Standard AUS Access', price: 30 }
+                ],
+                addons: [
+                    { id: 'a_au1', name: 'Stubby Holder', desc: 'Home Team Branded', price: 10 },
+                    { id: 'a_au2', name: 'Surf Wax', desc: 'Coconut Scent', price: 8 },
+                    { id: 'a_au3', name: 'Bucket Hat', desc: 'Festival Ready', price: 35 },
+                    { id: 'a_au4', name: 'Meet & Greet', desc: 'Sydney Opera House', price: 150 },
+                    { id: 'a_au5', name: 'Signed Poster', desc: 'Australian Leg', price: 25 }
+                ]
+            }
         };
 
         let cart = {
@@ -347,7 +606,7 @@
             renderProducts('global');
         };
 
-        // --- FUNCTIONS ---
+        // --- CORE FUNCTIONS ---
         function setRegion(region, btn) {
             currentRegion = region;
             
@@ -355,14 +614,28 @@
             document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
             
+            // Scroll selected button into view
+            btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            
             // Theme Update
             document.body.className = `mode-${region}`;
             
             // Title Update
-            const titles = { global: 'GLOBAL', texas: 'TEXAS', nash: 'NASHVILLE', uk: 'LONDON' };
-            document.getElementById('location-title').innerText = titles[region];
+            const titles = { 
+                global: 'GLOBAL', texas: 'TEXAS HUB', nash: 'NASHVILLE', 
+                nyc: 'NEW YORK', la: 'LOS ANGELES', chi: 'CHICAGO', 
+                uk: 'LONDON', aus: 'AUSTRALIA' 
+            };
+            
+            const titleEl = document.getElementById('location-title');
+            titleEl.style.opacity = 0;
+            setTimeout(() => {
+                titleEl.innerText = titles[region];
+                titleEl.style.opacity = 1;
+            }, 200);
 
-            // Reset Cart for new region
+            // Reset Cart for new region? 
+            // UX Decision: Clear cart to prevent cross-region mixups
             cart = { membership: null, addons: [] };
             
             renderProducts(region);
@@ -376,45 +649,68 @@
             gridMem.innerHTML = '';
             gridAdd.innerHTML = '';
 
-            const items = products[region] || products['global'];
+            const regionData = products[region] || products['global'];
 
-            items.forEach(item => {
-                const card = document.createElement('div');
-                card.className = `product-card ${item.type === 'membership' ? 'highlight' : ''}`;
-                card.onclick = () => toggleItem(item, card);
-                
-                card.innerHTML = `
-                    <div class="p-info">
-                        <h3>${item.name}</h3>
-                        <p>${item.desc}</p>
-                    </div>
-                    <div style="display:flex; align-items:center;">
-                        <div class="price-tag">$${item.price}</div>
-                        <button class="add-btn" id="btn-${item.id}">+</button>
-                    </div>
-                `;
+            // Render Memberships
+            regionData.memberships.forEach(item => {
+                const card = createCard(item, 'membership');
+                gridMem.appendChild(card);
+            });
 
-                if(item.type === 'membership') gridMem.appendChild(card);
-                else gridAdd.appendChild(card);
+            // Render Addons
+            regionData.addons.forEach(item => {
+                const card = createCard(item, 'addon');
+                gridAdd.appendChild(card);
             });
         }
 
-        function toggleItem(item, cardEl) {
+        function createCard(item, type) {
+            const card = document.createElement('div');
+            card.className = `product-card ${type === 'membership' ? 'membership-card' : ''}`;
+            card.id = `card-${item.id}`;
+            card.onclick = (e) => {
+                // Prevent clicking if clicking the button directly (handled separately? no, unify click)
+                toggleItem(item, card, type);
+            };
+            
+            const tagHTML = type === 'membership' 
+                ? `<div class="tag" style="color:var(--brand-primary)">MEMBERSHIP</div>` 
+                : `<div class="tag" style="color:#aaa">ADD-ON</div>`;
+
+            card.innerHTML = `
+                ${tagHTML}
+                <div class="p-info">
+                    <h3>${item.name}</h3>
+                    <p>${item.desc}</p>
+                </div>
+                <div class="card-bottom">
+                    <div class="price-tag">$${item.price}</div>
+                    <button class="add-btn" id="btn-${item.id}">+</button>
+                </div>
+            `;
+            return card;
+        }
+
+        function toggleItem(item, cardEl, type) {
             const btn = cardEl.querySelector('.add-btn');
 
-            if(item.type === 'membership') {
-                // Radio behavior for membership
+            if(type === 'membership') {
+                // Radio behavior
                 if(cart.membership && cart.membership.id === item.id) {
                     cart.membership = null; // deselect
                     btn.classList.remove('added');
+                    cardEl.classList.remove('active-card');
                 } else {
                     // Remove other active states
+                    document.querySelectorAll('.membership-card').forEach(c => c.classList.remove('active-card'));
                     document.querySelectorAll('#membership-grid .add-btn').forEach(b => b.classList.remove('added'));
+                    
                     cart.membership = item;
                     btn.classList.add('added');
+                    cardEl.classList.add('active-card');
                 }
             } else {
-                // Checkbox behavior for addons
+                // Checkbox behavior
                 const index = cart.addons.findIndex(x => x.id === item.id);
                 if(index > -1) {
                     cart.addons.splice(index, 1);
@@ -434,11 +730,59 @@
             
             const display = document.getElementById('total-display');
             
-            // Animate Number
-            display.style.transform = "scale(1.2)";
-            setTimeout(() => display.style.transform = "scale(1)", 200);
+            // Animate Price Change
+            display.style.opacity = 0.5;
+            setTimeout(() => {
+                display.innerText = `$${total.toFixed(2)}`;
+                display.style.opacity = 1;
+            }, 100);
+        }
+
+        // --- CHECKOUT LOGIC ---
+        function processCheckout() {
+            const name = document.getElementById('input-name').value;
+            const email = document.getElementById('input-email').value;
             
-            display.innerText = `$${total.toFixed(2)}`;
+            if(!name || !email) {
+                alert('Please enter your Name and Email to secure your spot on the list.');
+                document.querySelector('.vip-access').scrollIntoView({behavior: 'smooth'});
+                return;
+            }
+
+            if(!cart.membership && cart.addons.length === 0) {
+                alert('Please select at least one item to proceed.');
+                return;
+            }
+
+            // Update Modal Text
+            document.getElementById('confirm-email').innerText = email;
+            
+            // Trigger Confetti
+            fireConfetti();
+            
+            // Show Modal
+            document.getElementById('success-modal').classList.add('show');
+        }
+
+        function closeModal() {
+            document.getElementById('success-modal').classList.remove('show');
+            // Optional: Reset form or redirect
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function fireConfetti() {
+            const colors = ['#c27856', '#ffffff', '#bf3415', '#00ff88'];
+            for(let i=0; i<50; i++) {
+                const conf = document.createElement('div');
+                conf.className = 'confetti';
+                conf.style.left = Math.random() * 100 + 'vw';
+                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                conf.style.animationDuration = (Math.random() * 2 + 2) + 's';
+                document.body.appendChild(conf);
+                
+                // Cleanup
+                setTimeout(() => conf.remove(), 4000);
+            }
         }
     </script>
 </body>
